@@ -31,32 +31,28 @@ import org.reaktivity.specification.nukleus.NukleusRule;
  * RFC-6455, section 4.1 "Client-Side Requirements" RFC-6455, section 4.2
  * "Server-Side Requirements"
  */
-public class SubscribeStreamIT
+public class ServerIT
 {
     private final K3poRule k3po = new K3poRule()
-            .addScriptRoot("streams", "org/reaktivity/specification/nukleus/http_cache/streams/subscribe");
+            .addScriptRoot("streams", "org/reaktivity/specification/nukleus/http_cache/streams/server");
 
     private final TestRule timeout = new DisableOnDebug(new Timeout(5, SECONDS));
 
     private final NukleusRule nukleus = new NukleusRule()
-            .directory("target/nukleus-itests")
-            .streams("http-cache", "source")
-            .streams("target", "http-cache#source")
-            .streams("http-cache", "target")
-            .streams("source", "http-cache#source");
+            .directory("target/nukleus-itests");
 
     @Rule
     public final TestRule chain = outerRule(nukleus).around(k3po).around(timeout);
 
     @Test
     @Specification({
-        "${streams}/connection.established/server/source",
-        "${streams}/connection.established/server/nukleus",
+        "${streams}/connection.established/client",
+        "${streams}/connection.established/server",
         })
     public void shouldEstablishConnection() throws Exception
     {
         k3po.start();
-        k3po.notifyBarrier("ROUTED_OUTPUT");
+        k3po.notifyBarrier("ROUTED_INPUT");
         k3po.finish();
     }
 

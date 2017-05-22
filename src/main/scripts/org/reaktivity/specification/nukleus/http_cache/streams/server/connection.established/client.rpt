@@ -14,28 +14,22 @@
 # under the License.
 #
 
-property nukleiUR020000N ${nuklei:directory("target/nukleus-itests").controlCapacity(1024, 1024)}
-
-property controlUR020000N ${nukleiUR020000N.controlNew("http-cache")}
+property newSourceInputRef ${nuklei:newReferenceId()} # external scope
 
 connect await ROUTED_INPUT
-        "agrona://stream/bidirectional"
-        option agrona:reader ${agrona:manyToOneReader(controlUR020000N.nukleus)}
-        option agrona:writer ${agrona:broadcastTransmitter(controlUR020000N.controller)}
+        "nukleus://http-push/streams/source"
+        option nukleus:route ${newSourceInputRef}
+        option nukleus:window 8192
+        option nukleus:transmission "duplex"
+
+write nukleus:begin.ext [0x00] [0x07] ":scheme" [0x04] "http"
+                        [0x00] [0x07] ":method" [0x03] "GET"
+                        [0x00] [0x05] ":path" [0x05] "/path"
+                        [0x00] [0x0a] ":authority" [0x0e] "localhost:8080"
+
+read nukleus:begin.ext [0x00] [0x07] ":status" [0x03] "200"
+                       [0x00] [0x0c] "content-type" [0x11] "text/event-stream"
 
 connected
 
-read [0x00 0x00 0x00 0x02]
-read ([0..8]:correlationIdUR020000N)
-read [0x00 0x00]
-read [0x06] "source"
-read  ([0..8]:sourceInputRefRG010001N)
-read [0x06] "target"
-read ([0..8]:targetInputRefRG010001N)
-
-write [0x40 0x00 0x00 0x02]
-write ${correlationIdUR020000N}
-write flush
-
-close
-closed
+write close
