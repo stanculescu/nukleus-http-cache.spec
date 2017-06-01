@@ -16,7 +16,7 @@
 
 property newTargetInputRef ${nuklei:newReferenceId()} # external scope
 
-connect await ROUTED_INPUT
+connect await ROUTED_OUTPUT
         "nukleus://target/streams/http-cache"
         option nukleus:route ${newTargetInputRef}
         option nukleus:window 8192
