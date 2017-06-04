@@ -52,7 +52,7 @@ public class ServerIT
     public void shouldEstablishConnection() throws Exception
     {
         k3po.start();
-        k3po.notifyBarrier("ROUTED_INPUT");
+        k3po.notifyBarrier("ROUTED_SERVER");
         k3po.finish();
     }
 
