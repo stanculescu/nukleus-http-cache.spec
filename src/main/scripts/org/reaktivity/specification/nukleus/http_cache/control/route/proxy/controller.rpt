@@ -14,33 +14,32 @@
 # under the License.
 #
 
-property newTargetInputRef ${nukleus:newRouteRef()} # external scope
+property newProxyConnectRef ${nukleus:newRouteRef()} # external scope
 
-property nukleiRG010000C ${nuklei:directory("target/nukleus-itests").controlCapacity(1024, 1024)}
+property nukleiRG010101C ${nuklei:directory("target/nukleus-itests").controlCapacity(1024, 1024)}
 
-property controlRG010000C ${nukleiRG010000C.control("http-cache")}
+property controlRG010101C ${nukleiRG010101C.control("http-cache")}
 
 connect "agrona://stream/bidirectional"
-        option agrona:reader ${agrona:broadcastReceiver(controlRG010000C.controller)}
-        option agrona:writer ${agrona:manyToOneWriter(controlRG010000C.nukleus)}
+        option agrona:reader ${agrona:broadcastReceiver(controlRG010101C.controller)}
+        option agrona:writer ${agrona:manyToOneWriter(controlRG010101C.nukleus)}
 
 connected
 
 write [0x00 0x00 0x00 0x01]
-write ${controlRG010000C.nextCorrelationId()}
-write [0x00 0x00]
+write ${controlRG010101C.nextCorrelationId()}
+write [0x02]
 write [0x06] "source"
 write [0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00]
 write [0x06] "target"
-write ${newTargetInputRef}
-write [0x0c] "sub-protocol"
+write ${newProxyConnectRef}
 write flush
 
 read [0x40 0x00 0x00 0x01]
-read ${controlRG010000C.correlationId()}
-read ([0..8]:newSourceInputRef)
+read ${controlRG010101C.correlationId()}
+read ([0..8]:newProxyAcceptRef)
 
-read notify ROUTED_INPUT
+read notify ROUTED_PROXY
 
 close
 closed
