@@ -84,6 +84,48 @@ public class ProxyIT
 
     @Test
     @Specification({
+        "${streams}/not.debounce.private.cache/accept/client",
+        "${streams}/not.debounce.private.cache/accept/server",
+        "${streams}/not.debounce.private.cache/connect/client",
+        "${streams}/not.debounce.private.cache/connect/server",
+    })
+    public void shouldNotDebounceWhenCacheSyncPrivateCacheControl() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "${streams}/not.debounce.implied.private/accept/client",
+        "${streams}/not.debounce.implied.private/accept/server",
+        "${streams}/not.debounce.implied.private/connect/client",
+        "${streams}/not.debounce.implied.private/connect/server",
+    })
+    public void shouldNotDebounceWhenImpliedCacheSyncPrivate() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "${streams}/not.debounce.varys/accept/client",
+        "${streams}/not.debounce.varys/accept/server",
+        "${streams}/not.debounce.varys/connect/client",
+        "${streams}/not.debounce.varys/connect/server",
+    })
+    public void shouldNotDebounceWhenVarys() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
         "${streams}/cache.response/accept/client",
         "${streams}/cache.response/accept/server",
         "${streams}/cache.response/connect/client",

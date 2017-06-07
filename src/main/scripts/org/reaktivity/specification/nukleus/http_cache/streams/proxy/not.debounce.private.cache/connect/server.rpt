@@ -34,7 +34,7 @@ write await REQUEST_2_MADE
 
 write nukleus:begin.ext [0x00] [0x07] ":status" [0x03] "200"
                         [0x00] [0x0e] "content-length" [0x02] "11"
-                        [0x00] [0x0d] "cache-control" ${httpcache:fieldWithLength("stale-while-revalidate=7")}
+                        [0x00] [0x0d] "cache-control" ${httpcache:fieldWithLength("private")}
 
 connected
 
@@ -44,3 +44,25 @@ write close
 
 read closed
 
+accepted
+
+read nukleus:begin.ext [0x00] [0x07] ":scheme" [0x04] "http"
+                       [0x00] [0x07] ":method" [0x03] "GET"
+                       [0x00] [0x05] ":path" [0x05] "/path"
+                       [0x00] [0x0a] ":authority" [0x0e] "localhost:8080"
+                       [0x00] [0x11] "x-http-cache-sync" [0x06] "always"
+
+write await REQUEST_1_MADE
+write await REQUEST_2_MADE
+
+write nukleus:begin.ext [0x00] [0x07] ":status" [0x03] "200"
+                        [0x00] [0x0e] "content-length" [0x02] "11"
+                        [0x00] [0x0d] "cache-control" ${httpcache:fieldWithLength("private")}
+
+connected
+
+write "hello world"
+
+write close
+
+read closed
