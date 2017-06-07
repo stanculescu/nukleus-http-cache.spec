@@ -14,11 +14,11 @@
 # under the License.
 #
 
-property newSourceInputRef ${nukleus:newRouteRef()} # external scope
+property newProxyConnectRef ${nuklei:newReferenceId()} # external scope
 
-accept await ROUTED_OUTPUT
-        "nukleus://http-cache/streams/source"
-        option nukleus:route ${newSourceInputRef}
+accept await ROUTED_PROXY
+        "nukleus://target/streams/http-cache"
+        option nukleus:route ${newProxyConnectRef}
         option nukleus:window 8192
         option nukleus:transmission "duplex"
 accepted
@@ -27,25 +27,10 @@ read nukleus:begin.ext [0x00] [0x07] ":scheme" [0x04] "http"
                        [0x00] [0x07] ":method" [0x03] "GET"
                        [0x00] [0x05] ":path" [0x05] "/path"
                        [0x00] [0x0a] ":authority" [0x0e] "localhost:8080"
+                       [0x00] [0x11] "x-http-cache-sync" [0x06] "always" # Optional, could/might strip in future
 
-write nukleus:begin.ext [0x00] [0x07] ":status" [0x03] "200"
-                        [0x00] [0x0e] "content-length" [0x02] "11"
-                        [0x00] [0x0d] "cache-control" ${httpcache:fieldWithLength("stale-while-revalidate=7")}
-
-connected
-
-write "hello world"
-
-write close
-
-read closed
-
-accepted
-
-read nukleus:begin.ext [0x00] [0x07] ":scheme" [0x04] "http"
-                       [0x00] [0x07] ":method" [0x03] "GET"
-                       [0x00] [0x05] ":path" [0x05] "/path"
-                       [0x00] [0x0a] ":authority" [0x0e] "localhost:8080"
+write await REQUEST_1_MADE
+write await REQUEST_2_MADE
 
 write nukleus:begin.ext [0x00] [0x07] ":status" [0x03] "200"
                         [0x00] [0x0e] "content-length" [0x02] "11"

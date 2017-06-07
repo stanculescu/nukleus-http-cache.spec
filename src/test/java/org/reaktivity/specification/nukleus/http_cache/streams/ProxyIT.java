@@ -50,7 +50,35 @@ public class ProxyIT
     public void shouldProxyRequest() throws Exception
     {
         k3po.start();
-        k3po.notifyBarrier("ROUTED_OUTPUT");
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "${streams}/debounce.cache.sync/accept/client",
+        "${streams}/debounce.cache.sync/accept/server",
+        "${streams}/debounce.cache.sync/connect/client",
+        "${streams}/debounce.cache.sync/connect/server",
+    })
+    public void shouldDebounceCacheSync() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "${streams}/not.debounce.multiple.requests/accept/client",
+        "${streams}/not.debounce.multiple.requests/accept/server",
+        "${streams}/not.debounce.multiple.requests/connect/client",
+        "${streams}/not.debounce.multiple.requests/connect/server",
+    })
+    public void shouldNotDebounceMultipleRequests() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
         k3po.finish();
     }
 
@@ -64,7 +92,7 @@ public class ProxyIT
     public void shouldCacheResponse() throws Exception
     {
         k3po.start();
-        k3po.notifyBarrier("ROUTED_OUTPUT");
+        k3po.notifyBarrier("ROUTED_PROXY");
         k3po.finish();
     }
 
@@ -78,21 +106,7 @@ public class ProxyIT
     public void shouldCacheResponseAndPushPromise() throws Exception
     {
         k3po.start();
-        k3po.notifyBarrier("ROUTED_OUTPUT");
-        k3po.finish();
-    }
-
-    @Test
-    @Specification({
-        "${streams}/debounce.multiple.requests/accept/client",
-        "${streams}/debounce.multiple.requests/accept/server",
-        "${streams}/debounce.multiple.requests/connect/client",
-        "${streams}/debounce.multiple.requests/connect/server",
-    })
-    public void shouldDebounceMultipleRequests() throws Exception
-    {
-        k3po.start();
-        k3po.notifyBarrier("ROUTED_OUTPUT");
+        k3po.notifyBarrier("ROUTED_PROXY");
         k3po.finish();
     }
 
