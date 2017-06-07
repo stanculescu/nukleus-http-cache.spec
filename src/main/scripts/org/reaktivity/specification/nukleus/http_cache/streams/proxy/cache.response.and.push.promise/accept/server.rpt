@@ -30,7 +30,6 @@ read nukleus:begin.ext [0x00] [0x07] ":scheme" [0x04] "http"
 
 write nukleus:begin.ext [0x00] [0x07] ":status" [0x03] "200"
                         [0x00] [0x0e] "content-length" [0x02] "11"
-                        [0x00] [0x0d] "cache-control" ${httpcache:fieldWithLength("stale-while-revalidate=7")}
 
 connected
 
@@ -56,7 +55,6 @@ read nukleus:begin.ext [0x00] [0x07] ":scheme" [0x04] "http"
 
 write nukleus:begin.ext [0x00] [0x07] ":status" [0x03] "200"
                         [0x00] [0x0e] "content-length" [0x02] "11"
-                        [0x00] [0x0d] "cache-control" ${httpcache:fieldWithLength("stale-while-revalidate=7")}
 
 connected
 
