@@ -112,6 +112,20 @@ public class ProxyIT
 
     @Test
     @Specification({
+        "${streams}/debounce.when.explicitly.public/accept/client",
+        "${streams}/debounce.when.explicitly.public/accept/server",
+        "${streams}/debounce.when.explicitly.public/connect/client",
+        "${streams}/debounce.when.explicitly.public/connect/server",
+    })
+    public void shouldDebounceExplicitlyPublic() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
         "${streams}/not.debounce.varys/accept/client",
         "${streams}/not.debounce.varys/accept/server",
         "${streams}/not.debounce.varys/connect/client",
