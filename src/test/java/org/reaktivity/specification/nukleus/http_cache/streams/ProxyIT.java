@@ -166,4 +166,18 @@ public class ProxyIT
         k3po.finish();
     }
 
+    @Test
+    @Specification({
+        "${streams}/proxy.post.request/accept/client",
+        "${streams}/proxy.post.request/accept/server",
+        "${streams}/proxy.post.request/connect/client",
+        "${streams}/proxy.post.request/connect/server",
+    })
+    public void shouldProxyPostRequest() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
 }
