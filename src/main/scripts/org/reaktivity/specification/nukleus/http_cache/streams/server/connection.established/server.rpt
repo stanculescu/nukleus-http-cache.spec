@@ -23,13 +23,13 @@ accept await ROUTED_INPUT
         option nukleus:transmission "duplex"
 accepted
 
-read nukleus:begin.ext [0x00] [0x07] ":scheme" [0x04] "http"
-                       [0x00] [0x07] ":method" [0x03] "GET"
-                       [0x00] [0x05] ":path" [0x05] "/path"
-                       [0x00] [0x0a] ":authority" [0x0e] "localhost:8080"
+read nukleus:begin.ext ${http:header(":scheme", "http")}
+                       ${http:header(":method", "GET")}
+                       ${http:header(":path", "/path")}
+                       ${http:header(":authority", "localhost:8080")}
 
-write nukleus:begin.ext [0x00] [0x07] ":status" [0x03] "200"
-                        [0x00] [0x0c] "content-type" [0x11] "text/event-stream"
+write nukleus:begin.ext ${http:header(":status", "200")}
+                        ${http:header("content-type", "text/event-stream")}
 
 connected
 

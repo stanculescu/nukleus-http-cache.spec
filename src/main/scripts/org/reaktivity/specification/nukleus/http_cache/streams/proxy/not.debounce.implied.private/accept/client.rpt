@@ -22,17 +22,17 @@ connect await ROUTED_PROXY
         option nukleus:window 8192
         option nukleus:transmission "duplex"
 
-write nukleus:begin.ext [0x00] [0x07] ":scheme" [0x04] "http"
-                        [0x00] [0x07] ":method" [0x03] "GET"
-                        [0x00] [0x05] ":path" [0x05] "/path"
-                        [0x00] [0x0a] ":authority" [0x0e] "localhost:8080"
-                        [0x00] [0x11] "x-http-cache-sync" [0x06] "always"
-                        [0x00] [0x0d] "authorization" ${httpcache:fieldWithLength("some-authorization-value")}
+write nukleus:begin.ext ${http:header(":scheme", "http")}
+                        ${http:header(":method", "GET")}
+                        ${http:header(":path", "/path")}
+                        ${http:header(":authority", "localhost:8080")}
+                        ${http:header("x-http-cache-sync", "always")}
+                        ${http:header("authorization", "some-authorization-value")}
 
 write notify REQUEST_1_MADE
 
-read nukleus:begin.ext [0x00] [0x07] ":status" [0x03] "200"
-                       [0x00] [0x0e] "content-length" [0x02] "11"
+read nukleus:begin.ext ${http:header(":status", "200")}
+                       ${http:header("content-length", "11")}
 
 connected
 
@@ -49,17 +49,17 @@ connect await ROUTED_PROXY
         option nukleus:window 8192
         option nukleus:transmission "duplex"
 
-write nukleus:begin.ext [0x00] [0x07] ":scheme" [0x04] "http"
-                        [0x00] [0x07] ":method" [0x03] "GET"
-                        [0x00] [0x05] ":path" [0x05] "/path"
-                        [0x00] [0x0a] ":authority" [0x0e] "localhost:8080"
-                        [0x00] [0x11] "x-http-cache-sync" [0x06] "always"
-                        [0x00] [0x0d] "authorization" ${httpcache:fieldWithLength("some-authorization-value")}
+write nukleus:begin.ext ${http:header(":scheme", "http")}
+                        ${http:header(":method", "GET")}
+                        ${http:header(":path", "/path")}
+                        ${http:header(":authority", "localhost:8080")}
+                        ${http:header("x-http-cache-sync", "always")}
+                        ${http:header("authorization", "some-authorization-value")}
 
 write notify REQUEST_2_MADE
 
-read nukleus:begin.ext [0x00] [0x07] ":status" [0x03] "200"
-                       [0x00] [0x0e] "content-length" [0x02] "11"
+read nukleus:begin.ext ${http:header(":status", "200")}
+                       ${http:header("content-length", "11")}
 
 connected
 
