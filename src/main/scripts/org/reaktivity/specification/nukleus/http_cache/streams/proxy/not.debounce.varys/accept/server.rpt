@@ -23,16 +23,16 @@ accept await ROUTED_PROXY
         option nukleus:transmission "duplex"
 accepted
 
-read nukleus:begin.ext [0x00] [0x07] ":scheme" [0x04] "http"
-                       [0x00] [0x07] ":method" [0x03] "GET"
-                       [0x00] [0x05] ":path" [0x05] "/path"
-                       [0x00] [0x0a] ":authority" [0x0e] "localhost:8080"
-                       [0x00] [0x11] "x-http-cache-sync" [0x06] "always"
-                       [0x00] [0x0a] "user-agent" ${httpcache:fieldWithLength("example/1")}
+read nukleus:begin.ext ${http:header(":scheme", "http")}
+                       ${http:header(":method", "GET")}
+                       ${http:header(":path", "/path")}
+                       ${http:header(":authority", "localhost:8080")}
+                       ${http:header("x-http-cache-sync", "always")}
+                       ${http:header("user-agent", "example/1")}
 
-write nukleus:begin.ext [0x00] [0x07] ":status" [0x03] "200"
-                        [0x00] [0x0e] "content-length" [0x02] "11"
-                        [0x00] [0x04] "vary" ${httpcache:fieldWithLength("user-agent")}
+write nukleus:begin.ext ${http:header(":status", "200")}
+                        ${http:header("content-length", "11")}
+                        ${http:header("vary", "user-agent")}
 
 connected
 
@@ -44,16 +44,16 @@ read closed
 
 accepted
 
-read nukleus:begin.ext [0x00] [0x07] ":scheme" [0x04] "http"
-                       [0x00] [0x07] ":method" [0x03] "GET"
-                       [0x00] [0x05] ":path" [0x05] "/path"
-                       [0x00] [0x0a] ":authority" [0x0e] "localhost:8080"
-                       [0x00] [0x11] "x-http-cache-sync" [0x06] "always"
-                       [0x00] [0x0a] "user-agent" ${httpcache:fieldWithLength("example/2")}
+read nukleus:begin.ext ${http:header(":scheme", "http")}
+                       ${http:header(":method", "GET")}
+                       ${http:header(":path", "/path")}
+                       ${http:header(":authority", "localhost:8080")}
+                       ${http:header("x-http-cache-sync", "always")}
+                       ${http:header("user-agent", "example/2")}
                         
-write nukleus:begin.ext [0x00] [0x07] ":status" [0x03] "200"
-                        [0x00] [0x0e] "content-length" [0x02] "11"
-                        [0x00] [0x04] "vary" ${httpcache:fieldWithLength("user-agent")}
+write nukleus:begin.ext ${http:header(":status", "200")}
+                        ${http:header("content-length", "11")}
+                        ${http:header("vary", "user-agent")}
 
 connected
 
