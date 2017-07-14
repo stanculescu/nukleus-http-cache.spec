@@ -36,5 +36,4 @@ write close
 
 read "hello world"
 
-read closed
-
+read aborted

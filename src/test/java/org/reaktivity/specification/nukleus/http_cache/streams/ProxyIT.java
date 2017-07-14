@@ -180,4 +180,71 @@ public class ProxyIT
         k3po.finish();
     }
 
+    @Test
+    @Specification({
+        "${streams}/accept.sent.abort/accept/client",
+        "${streams}/accept.sent.abort/accept/server",
+        "${streams}/accept.sent.abort/connect/client",
+        "${streams}/accept.sent.abort/connect/server",
+    })
+    public void acceptSentAbort() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "${streams}/connect.reply.sent.abort/accept/client",
+        "${streams}/connect.reply.sent.abort/accept/server",
+        "${streams}/connect.reply.sent.abort/connect/client",
+        "${streams}/connect.reply.sent.abort/connect/server",
+    })
+    public void connectReplySentAbort() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "${streams}/connect.sent.reset/accept/client",
+        "${streams}/connect.sent.reset/accept/server",
+        "${streams}/connect.sent.reset/connect/client",
+        "${streams}/connect.sent.reset/connect/server",
+    })
+    public void connectSentReset() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "${streams}/accept.reply.sent.reset/accept/client",
+        "${streams}/accept.reply.sent.reset/accept/server",
+        "${streams}/accept.reply.sent.reset/connect/client",
+        "${streams}/accept.reply.sent.reset/connect/server",
+    })
+    public void acceptReplySentReset() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "${streams}/nukleus.sent.reset/accept/client",
+        "${streams}/nukleus.sent.reset/accept/server"})
+    public void shouldResetIfOOM() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
 }
