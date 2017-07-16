@@ -37,6 +37,7 @@ write notify REQUEST_1_MADE
 
 read nukleus:begin.ext ${http:header(":status", "200")}
                        ${http:header("content-length", "11")}
+                       ${http:header("if-none-match", etag2)}
 
 connected
 
@@ -75,7 +76,7 @@ write notify REQUEST_2_MADE
 
 read nukleus:begin.ext ${http:header(":status", "200")}
                        ${http:header("content-length", "11")}
-
+                       ${http:header("if-none-match", etag2)}
 connected
 
 write close

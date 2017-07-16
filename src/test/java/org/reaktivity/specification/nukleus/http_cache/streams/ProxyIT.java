@@ -70,6 +70,20 @@ public class ProxyIT
     }
 
     @Test
+    @Specification({
+        "${streams}/debounce.cache.sync.and.individualize.push.promise/accept/client",
+        "${streams}/debounce.cache.sync.and.individualize.push.promise/accept/server",
+        "${streams}/debounce.cache.sync.and.individualize.push.promise/connect/client",
+        "${streams}/debounce.cache.sync.and.individualize.push.promise/connect/server",
+    })
+    public void shouldDebounceCacheSyncAndIndividualizePushPromise() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
     @Ignore("https://github.com/reaktivity/k3po-nukleus-ext.java/issues/14")
     @Specification({
         "${streams}/debounce.cache.sync.but.not.forward.304/accept/client",

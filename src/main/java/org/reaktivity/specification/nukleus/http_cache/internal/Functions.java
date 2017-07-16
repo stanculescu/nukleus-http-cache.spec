@@ -1,5 +1,7 @@
 package org.reaktivity.specification.nukleus.http_cache.internal;
 
+import static java.lang.System.currentTimeMillis;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
@@ -48,8 +50,16 @@ public final class Functions
     @Function
     public static String date()
     {
-        SimpleDateFormat format = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss");
+        final SimpleDateFormat format = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss");
         return format.format(new Date()) + " GMT";
+    }
+
+    @Function
+    public static String datePlus(int seconds)
+    {
+        final SimpleDateFormat format = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss");
+        final Date date = new Date(currentTimeMillis() + (seconds * 1000));
+        return format.format(date) + " GMT";
     }
 
     @Function
