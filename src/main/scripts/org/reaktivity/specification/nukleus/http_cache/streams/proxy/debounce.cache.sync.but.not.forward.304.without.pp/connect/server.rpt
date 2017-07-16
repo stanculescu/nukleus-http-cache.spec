@@ -14,12 +14,13 @@
 # under the License.
 #
 
-property newProxyAcceptRef ${nukleus:newRouteRef()} # external scope
-property date ${http_cache:date()} # shared property
+property newProxyConnectRef ${nuklei:newReferenceId()} # external scope
+property etag ${http_cache:strongEtag()}
+property etag2 ${http_cache:strongEtag()}
 
 accept await ROUTED_PROXY
-        "nukleus://http-cache/streams/source"
-        option nukleus:route ${newProxyAcceptRef}
+        "nukleus://target/streams/http-cache"
+        option nukleus:route ${newProxyConnectRef}
         option nukleus:window 8192
         option nukleus:transmission "duplex"
 accepted
@@ -28,19 +29,22 @@ read nukleus:begin.ext ${http:header(":scheme", "http")}
                        ${http:header(":method", "GET")}
                        ${http:header(":path", "/path")}
                        ${http:header(":authority", "localhost:8080")}
+                       ${http:header("x-http-cache-sync", "always")}
+                       ${http:header("x-poll-injected", "no-cache")}
+                       ${http:header("cache-control", "no-cache")}
+                       ${http:header("if-none-match", etag)}
 
-write nukleus:begin.ext ${http:header(":status", "200")}
+#write await REQUEST_1_MADE
+#write await REQUEST_2_MADE
+
+write nukleus:begin.ext ${http:header(":status", "304")}
                         ${http:header("content-length", "11")}
-                        ${http:header("cache-control", "max-age=15")}
-                        ${http:header("date", date)}
 
 connected
 
-write "hello world"
+read closed
 
 write close
-
-read closed
 
 accepted
 
@@ -48,17 +52,30 @@ read nukleus:begin.ext ${http:header(":scheme", "http")}
                        ${http:header(":method", "GET")}
                        ${http:header(":path", "/path")}
                        ${http:header(":authority", "localhost:8080")}
+                       ${http:header("x-http-cache-sync", "always")}
+                       ${http:header("x-poll-injected", "no-cache")}
+                       ${http:header("cache-control", "no-cache")}
+                       ${http:header("if-none-match", etag)}
 
 write nukleus:begin.ext ${http:header(":status", "200")}
                         ${http:header("content-length", "11")}
-                        ${http:header("cache-control", "max-age=15")}
-                        ${http:header("date", date)}
 
 connected
+
+read closed
+
+write nukleus:data.ext ${http:header(":scheme", "http")}
+                       ${http:header(":method", "GET")}
+                       ${http:header(":path", "/path")}
+                       ${http:header(":authority", "localhost:8080")}
+                       ${http:header("x-http-cache-sync", "always")}
+                       ${http:header("x-poll-injected", "no-cache")}
+                       ${http:header("cache-control", "no-cache")}
+                       ${http:header("if-none-match", etag2)}
 
 write "hello world"
 
 write close
 
-read closed
+
 

@@ -17,7 +17,7 @@
 property newProxyAcceptRef ${nukleus:newRouteRef()} # external scope
 
 connect await ROUTED_PROXY
-        "nukleus://http-push/streams/source"
+        "nukleus://http-cache/streams/source"
         option nukleus:route ${newProxyAcceptRef}
         option nukleus:window 8192
         option nukleus:transmission "simplex"

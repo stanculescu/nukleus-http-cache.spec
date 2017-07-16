@@ -18,6 +18,7 @@ package org.reaktivity.specification.nukleus.http_cache.streams;
 import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.junit.rules.RuleChain.outerRule;
 
+import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.DisableOnDebug;
@@ -62,6 +63,35 @@ public class ProxyIT
         "${streams}/debounce.cache.sync/connect/server",
     })
     public void shouldDebounceCacheSync() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Ignore("https://github.com/reaktivity/k3po-nukleus-ext.java/issues/14")
+    @Specification({
+        "${streams}/debounce.cache.sync.but.not.forward.304/accept/client",
+        "${streams}/debounce.cache.sync.but.not.forward.304/accept/server",
+        "${streams}/debounce.cache.sync.but.not.forward.304/connect/client",
+        "${streams}/debounce.cache.sync.but.not.forward.304/connect/server",
+    })
+    public void shouldDebounceCacheSyncButNotForward304() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "${streams}/debounce.cache.sync.but.not.forward.304.without.pp/accept/client",
+        "${streams}/debounce.cache.sync.but.not.forward.304.without.pp/accept/server",
+        "${streams}/debounce.cache.sync.but.not.forward.304.without.pp/connect/client",
+        "${streams}/debounce.cache.sync.but.not.forward.304.without.pp/connect/server",
+    })
+    public void shouldDebounceCacheSyncButNotForward304WithoutPP() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_PROXY");
@@ -159,6 +189,8 @@ public class ProxyIT
         "${streams}/cache.response.and.push.promise/connect/client",
         "${streams}/cache.response.and.push.promise/connect/server",
     })
+    @Ignore("TODO / Complete, plus need implementation of serving push promise " +
+            "and stripping private headers?")
     public void shouldCacheResponseAndPushPromise() throws Exception
     {
         k3po.start();
