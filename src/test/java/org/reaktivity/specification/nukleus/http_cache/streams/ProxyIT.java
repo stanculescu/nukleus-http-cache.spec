@@ -71,6 +71,20 @@ public class ProxyIT
 
     @Test
     @Specification({
+        "${streams}/debounce.cache.sync.and.inject.individualized.push.promise/accept/client",
+        "${streams}/debounce.cache.sync.and.inject.individualized.push.promise/accept/server",
+        "${streams}/debounce.cache.sync.and.inject.individualized.push.promise/connect/client",
+        "${streams}/debounce.cache.sync.and.inject.individualized.push.promise/connect/server",
+    })
+    public void shouldDebounceCacheSyncAndInjectIndividualizedPushPromise() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
         "${streams}/debounce.cache.sync.and.individualize.push.promise/accept/client",
         "${streams}/debounce.cache.sync.and.individualize.push.promise/accept/server",
         "${streams}/debounce.cache.sync.and.individualize.push.promise/connect/client",
