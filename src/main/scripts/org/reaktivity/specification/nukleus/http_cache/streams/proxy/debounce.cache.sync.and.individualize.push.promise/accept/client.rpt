@@ -41,7 +41,7 @@ write notify REQUEST_1_MADE
 
 read nukleus:begin.ext ${http:header(":status", "200")}
                        ${http:header("content-length", "11")}
-                       ${http:header("date", dateIn5)}
+                       ${http:header("last-modified", dateIn5)}
                        ${http:header("etag", etag2)}
 
 connected
@@ -85,7 +85,7 @@ write notify REQUEST_2_MADE
 
 read nukleus:begin.ext ${http:header(":status", "200")}
                        ${http:header("content-length", "11")}
-                       ${http:header("date", dateIn5)}
+                       ${http:header("last-modified", dateIn5)}
                        ${http:header("etag", etag2)}
 
 connected
