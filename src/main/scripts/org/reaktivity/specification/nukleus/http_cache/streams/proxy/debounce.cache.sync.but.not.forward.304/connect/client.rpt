@@ -38,6 +38,8 @@ read nukleus:begin.ext ${http:header(":status", "304")}
 
 connected
 
+write notify CONNECT_CONNECT_MADE
+
 write close
 
 read nukleus:data.ext ${http:header(":scheme", "http")}
@@ -52,7 +54,7 @@ read nukleus:data.ext ${http:header(":scheme", "http")}
 read /.*/ # https://github.com/reaktivity/k3po-nukleus-ext.java/issues/14
 read closed
 
-connect await ROUTED_PROXY
+connect await CONNECT_CONNECT_MADE
         "nukleus://target/streams/http-cache"
         option nukleus:route ${newProxyConnectRef}
         option nukleus:window 8192

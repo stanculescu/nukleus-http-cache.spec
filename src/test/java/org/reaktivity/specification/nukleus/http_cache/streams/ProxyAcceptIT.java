@@ -28,7 +28,7 @@ import org.kaazing.k3po.junit.annotation.Specification;
 import org.kaazing.k3po.junit.rules.K3poRule;
 import org.reaktivity.specification.nukleus.NukleusRule;
 
-public class ProxyIT
+public class ProxyAcceptIT
 {
     private final K3poRule k3po = new K3poRule()
             .addScriptRoot("streams", "org/reaktivity/specification/nukleus/http_cache/streams/proxy");
@@ -45,8 +45,6 @@ public class ProxyIT
     @Specification({
         "${streams}/proxy.request/accept/client",
         "${streams}/proxy.request/accept/server",
-        "${streams}/proxy.request/connect/client",
-        "${streams}/proxy.request/connect/server",
         })
     public void shouldProxyRequest() throws Exception
     {
@@ -59,8 +57,6 @@ public class ProxyIT
     @Specification({
         "${streams}/proxy.request.and.304/accept/client",
         "${streams}/proxy.request.and.304/accept/server",
-        "${streams}/proxy.request.and.304/connect/client",
-        "${streams}/proxy.request.and.304/connect/server",
     })
     public void shouldProxyRequestWith304() throws Exception
     {
@@ -73,8 +69,6 @@ public class ProxyIT
     @Specification({
         "${streams}/proxy.request.and.follow.304/accept/client",
         "${streams}/proxy.request.and.follow.304/accept/server",
-        "${streams}/proxy.request.and.follow.304/connect/client",
-        "${streams}/proxy.request.and.follow.304/connect/server",
     })
     public void shouldProxyRequestAndFollow304() throws Exception
     {
@@ -87,8 +81,6 @@ public class ProxyIT
     @Specification({
         "${streams}/debounce.cache.sync/accept/client",
         "${streams}/debounce.cache.sync/accept/server",
-        "${streams}/debounce.cache.sync/connect/client",
-        "${streams}/debounce.cache.sync/connect/server",
     })
     public void shouldDebounceCacheSync() throws Exception
     {
@@ -101,8 +93,6 @@ public class ProxyIT
     @Specification({
         "${streams}/debounce.cache.sync.and.inject.individualized.push.promise/accept/client",
         "${streams}/debounce.cache.sync.and.inject.individualized.push.promise/accept/server",
-        "${streams}/debounce.cache.sync.and.inject.individualized.push.promise/connect/client",
-        "${streams}/debounce.cache.sync.and.inject.individualized.push.promise/connect/server",
     })
     public void shouldDebounceCacheSyncAndInjectIndividualizedPushPromise() throws Exception
     {
@@ -115,8 +105,6 @@ public class ProxyIT
     @Specification({
         "${streams}/debounce.cache.sync.but.not.forward.304/accept/client",
         "${streams}/debounce.cache.sync.but.not.forward.304/accept/server",
-        "${streams}/debounce.cache.sync.but.not.forward.304/connect/client",
-        "${streams}/debounce.cache.sync.but.not.forward.304/connect/server",
     })
     public void shouldDebounceCacheSyncButNotForward304() throws Exception
     {
@@ -129,8 +117,6 @@ public class ProxyIT
     @Specification({
         "${streams}/debounce.cache.sync.but.not.forward.304.without.pp/accept/client",
         "${streams}/debounce.cache.sync.but.not.forward.304.without.pp/accept/server",
-        "${streams}/debounce.cache.sync.but.not.forward.304.without.pp/connect/client",
-        "${streams}/debounce.cache.sync.but.not.forward.304.without.pp/connect/server",
     })
     public void shouldDebounceCacheSyncButNotForward304WithoutPP() throws Exception
     {
@@ -143,8 +129,6 @@ public class ProxyIT
     @Specification({
         "${streams}/not.debounce.multiple.requests/accept/client",
         "${streams}/not.debounce.multiple.requests/accept/server",
-        "${streams}/not.debounce.multiple.requests/connect/client",
-        "${streams}/not.debounce.multiple.requests/connect/server",
     })
     public void shouldNotDebounceMultipleRequests() throws Exception
     {
@@ -157,8 +141,6 @@ public class ProxyIT
     @Specification({
         "${streams}/not.debounce.private.cache/accept/client",
         "${streams}/not.debounce.private.cache/accept/server",
-        "${streams}/not.debounce.private.cache/connect/client",
-        "${streams}/not.debounce.private.cache/connect/server",
     })
     public void shouldNotDebounceWhenCacheSyncPrivateCacheControl() throws Exception
     {
@@ -171,8 +153,6 @@ public class ProxyIT
     @Specification({
         "${streams}/not.debounce.implied.private/accept/client",
         "${streams}/not.debounce.implied.private/accept/server",
-        "${streams}/not.debounce.implied.private/connect/client",
-        "${streams}/not.debounce.implied.private/connect/server",
     })
     public void shouldNotDebounceWhenImpliedCacheSyncPrivate() throws Exception
     {
@@ -185,8 +165,6 @@ public class ProxyIT
     @Specification({
         "${streams}/debounce.when.explicitly.public/accept/client",
         "${streams}/debounce.when.explicitly.public/accept/server",
-        "${streams}/debounce.when.explicitly.public/connect/client",
-        "${streams}/debounce.when.explicitly.public/connect/server",
     })
     public void shouldDebounceExplicitlyPublic() throws Exception
     {
@@ -199,8 +177,6 @@ public class ProxyIT
     @Specification({
         "${streams}/not.debounce.varys/accept/client",
         "${streams}/not.debounce.varys/accept/server",
-        "${streams}/not.debounce.varys/connect/client",
-        "${streams}/not.debounce.varys/connect/server",
     })
     public void shouldNotDebounceWhenVarys() throws Exception
     {
@@ -213,8 +189,6 @@ public class ProxyIT
     @Specification({
         "${streams}/cache.response/accept/client",
         "${streams}/cache.response/accept/server",
-        "${streams}/cache.response/connect/client",
-        "${streams}/cache.response/connect/server",
     })
     public void shouldCacheResponse() throws Exception
     {
@@ -227,8 +201,6 @@ public class ProxyIT
     @Specification({
         "${streams}/cache.response.and.push.promise/accept/client",
         "${streams}/cache.response.and.push.promise/accept/server",
-        "${streams}/cache.response.and.push.promise/connect/client",
-        "${streams}/cache.response.and.push.promise/connect/server",
     })
     @Ignore("TODO / Complete, plus need implementation of serving push promise " +
             "and stripping private headers?")
@@ -243,8 +215,6 @@ public class ProxyIT
     @Specification({
         "${streams}/proxy.post.request/accept/client",
         "${streams}/proxy.post.request/accept/server",
-        "${streams}/proxy.post.request/connect/client",
-        "${streams}/proxy.post.request/connect/server",
     })
     public void shouldProxyPostRequest() throws Exception
     {
@@ -257,8 +227,6 @@ public class ProxyIT
     @Specification({
         "${streams}/accept.sent.abort/accept/client",
         "${streams}/accept.sent.abort/accept/server",
-        "${streams}/accept.sent.abort/connect/client",
-        "${streams}/accept.sent.abort/connect/server",
     })
     public void shouldAcceptSentAbort() throws Exception
     {
@@ -271,8 +239,6 @@ public class ProxyIT
     @Specification({
         "${streams}/connect.reply.sent.abort/accept/client",
         "${streams}/connect.reply.sent.abort/accept/server",
-        "${streams}/connect.reply.sent.abort/connect/client",
-        "${streams}/connect.reply.sent.abort/connect/server",
     })
     public void shouldConnectReplySentAbort() throws Exception
     {
@@ -285,8 +251,6 @@ public class ProxyIT
     @Specification({
         "${streams}/connect.sent.reset/accept/client",
         "${streams}/connect.sent.reset/accept/server",
-        "${streams}/connect.sent.reset/connect/client",
-        "${streams}/connect.sent.reset/connect/server",
     })
     public void shouldConnectSentReset() throws Exception
     {
@@ -299,8 +263,6 @@ public class ProxyIT
     @Specification({
         "${streams}/accept.reply.sent.reset/accept/client",
         "${streams}/accept.reply.sent.reset/accept/server",
-        "${streams}/accept.reply.sent.reset/connect/client",
-        "${streams}/accept.reply.sent.reset/connect/server",
     })
     public void shouldAcceptReplySentReset() throws Exception
     {
@@ -335,8 +297,6 @@ public class ProxyIT
     @Specification({
         "${streams}/inject.header.values/accept/client",
         "${streams}/inject.header.values/accept/server",
-        "${streams}/inject.header.values/connect/client",
-        "${streams}/inject.header.values/connect/server",
     })
     public void shouldInjectHeaderValues() throws Exception
     {
@@ -349,8 +309,6 @@ public class ProxyIT
     @Specification({
         "${streams}/inject.missing.header.values/accept/client",
         "${streams}/inject.missing.header.values/accept/server",
-        "${streams}/inject.missing.header.values/connect/client",
-        "${streams}/inject.missing.header.values/connect/server",
     })
     public void shouldInjectMissingHeaderValues() throws Exception
     {
@@ -363,8 +321,6 @@ public class ProxyIT
     @Specification({
         "${streams}/inject.push.promise/accept/client",
         "${streams}/inject.push.promise/accept/server",
-        "${streams}/inject.push.promise/connect/client",
-        "${streams}/inject.push.promise/connect/server",
     })
     public void shouldInjectPushPromise() throws Exception
     {
@@ -377,8 +333,6 @@ public class ProxyIT
     @Specification({
         "${streams}/strip.injected.headers/accept/client",
         "${streams}/strip.injected.headers/accept/server",
-        "${streams}/strip.injected.headers/connect/client",
-        "${streams}/strip.injected.headers/connect/server",
     })
     public void shouldStripInjectedHeaders() throws Exception
     {
@@ -391,8 +345,6 @@ public class ProxyIT
     @Specification({
         "${streams}/strip.injected.header.values/accept/client",
         "${streams}/strip.injected.header.values/accept/server",
-        "${streams}/strip.injected.header.values/connect/client",
-        "${streams}/strip.injected.header.values/connect/server",
     })
     public void shouldStripInjectedHeaderValues() throws Exception
     {
@@ -405,8 +357,6 @@ public class ProxyIT
     @Specification({
         "${streams}/strip.missing.injected.header.values/accept/client",
         "${streams}/strip.missing.injected.header.values/accept/server",
-        "${streams}/strip.missing.injected.header.values/connect/client",
-        "${streams}/strip.missing.injected.header.values/connect/server",
     })
     public void shouldStripMissingInjectedHeaderValues() throws Exception
     {

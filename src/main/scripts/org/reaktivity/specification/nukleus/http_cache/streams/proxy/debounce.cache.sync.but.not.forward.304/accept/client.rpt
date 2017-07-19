@@ -33,12 +33,12 @@ write nukleus:begin.ext ${http:header(":scheme", "http")}
                         ${http:header("cache-control", "no-cache")}
                         ${http:header("if-none-match", etag)}
 
-write notify REQUEST_1_MADE
-
 read nukleus:begin.ext ${http:header(":status", "200")}
                        ${http:header("content-length", "11")}
 
 connected
+
+write notify ACCEPT_CONNECT_MADE
 
 write close
 
@@ -56,7 +56,7 @@ read "hello world"
 read closed
 
 # INPUT STREAM 2
-connect await ROUTED_PROXY
+connect await ACCEPT_CONNECT_MADE
         "nukleus://http-cache/streams/source"
         option nukleus:route ${newProxyAcceptRef}
         option nukleus:window 8192
@@ -70,8 +70,6 @@ write nukleus:begin.ext ${http:header(":scheme", "http")}
                         ${http:header("x-poll-injected", "no-cache")}
                         ${http:header("cache-control", "no-cache")}
                         ${http:header("if-none-match", etag)}
-
-write notify REQUEST_2_MADE
 
 read nukleus:begin.ext ${http:header(":status", "200")}
                        ${http:header("content-length", "11")}

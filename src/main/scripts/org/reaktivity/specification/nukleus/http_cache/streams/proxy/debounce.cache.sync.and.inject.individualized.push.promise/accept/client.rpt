@@ -38,14 +38,14 @@ write nukleus:begin.ext ${http:header(":scheme", "http")}
                         ${http:header("if-none-match", etag)}
                         ${http:header("if-modified-since", date)}
 
-write notify REQUEST_1_MADE
-
 read nukleus:begin.ext ${http:header(":status", "200")}
                        ${http:header("content-length", "11")}
                        ${http:header("last-modified", dateIn5)}
                        ${http:header("etag", etag2)}
 
 connected
+
+write notify ACCEPT_CONNECT_MADE
 
 write close
 
@@ -67,7 +67,7 @@ read "hello world"
 read closed
 
 # INPUT STREAM 2
-connect await REQUEST_1_MADE
+connect await ACCEPT_CONNECT_MADE
         "nukleus://http-cache/streams/source"
         option nukleus:route ${newProxyAcceptRef}
         option nukleus:window 8192
@@ -84,8 +84,6 @@ write nukleus:begin.ext ${http:header(":scheme", "http")}
                         ${http:header("cache-control", "no-cache")}
                         ${http:header("if-none-match", etag)}
                         ${http:header("if-modified-since", date)}
-
-write notify REQUEST_2_MADE
 
 read nukleus:begin.ext ${http:header(":status", "200")}
                        ${http:header("content-length", "11")}
@@ -112,4 +110,3 @@ read nukleus:data.ext ${http:header("cache-control", "stale-while-revalidate=315
 read "hello world"
 
 read closed
-
