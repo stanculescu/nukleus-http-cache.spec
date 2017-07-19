@@ -25,6 +25,48 @@ accept await ROUTED_PROXY
         option nukleus:route ${newProxyAcceptRef}
         option nukleus:window 8192
         option nukleus:transmission "duplex"
+
+accepted
+
+read nukleus:begin.ext ${http:header(":scheme", "http")}
+                       ${http:header(":method", "GET")}
+                       ${http:header(":path", "/path")}
+                       ${http:header(":authority", "localhost:8080")}
+                       ${http:header("user-agent", "client 2")}
+                       ${http:header("x-retry-after", "2")}
+                       ${http:header("x-http-cache-sync", "always")}
+                       ${http:header("x-poll-injected", "x-http-cache-sync, no-cache")}
+                       ${http:header("cache-control", "no-cache")}
+                       ${http:header("if-none-match", etag)}
+                       ${http:header("if-modified-since", date)}
+
+write nukleus:begin.ext ${http:header(":status", "200")}
+                        ${http:header("content-length", "11")}
+                        ${http:header("last-modified", dateIn5)}
+                        ${http:header("etag", etag2)}
+
+connected
+
+read closed
+
+write nukleus:data.ext ${http:header("cache-control", "stale-while-revalidate=31536000")}
+                       ${http:header(":scheme", "http")}
+                       ${http:header(":method", "GET")}
+                       ${http:header(":path", "/path")}
+                       ${http:header(":authority", "localhost:8080")}
+                       ${http:header("user-agent", "client 2")}
+                       ${http:header("x-retry-after", "2")}
+                       ${http:header("x-http-cache-sync", "always")}
+                       ${http:header("x-poll-injected", "x-http-cache-sync, no-cache")}
+                       ${http:header("cache-control", "no-cache")}
+                       ${http:header("if-none-match", etag2)}
+                       ${http:header("if-modified-since", dateIn5)}
+
+write "hello world"
+
+write close
+
+
 accepted
 
 read nukleus:begin.ext ${http:header(":scheme", "http")}
@@ -66,44 +108,5 @@ write "hello world"
 write close
 
 
-accepted
-
-read nukleus:begin.ext ${http:header(":scheme", "http")}
-                       ${http:header(":method", "GET")}
-                       ${http:header(":path", "/path")}
-                       ${http:header(":authority", "localhost:8080")}
-                       ${http:header("user-agent", "client 2")}
-                       ${http:header("x-retry-after", "2")}
-                       ${http:header("x-http-cache-sync", "always")}
-                       ${http:header("x-poll-injected", "x-http-cache-sync, no-cache")}
-                       ${http:header("cache-control", "no-cache")}
-                       ${http:header("if-none-match", etag)}
-                       ${http:header("if-modified-since", date)}
-
-write nukleus:begin.ext ${http:header(":status", "200")}
-                        ${http:header("content-length", "11")}
-                        ${http:header("last-modified", dateIn5)}
-                        ${http:header("etag", etag2)}
-
-connected
-
-read closed
-
-write nukleus:data.ext ${http:header("cache-control", "stale-while-revalidate=31536000")}
-                       ${http:header(":scheme", "http")}
-                       ${http:header(":method", "GET")}
-                       ${http:header(":path", "/path")}
-                       ${http:header(":authority", "localhost:8080")}
-                       ${http:header("user-agent", "client 2")}
-                       ${http:header("x-retry-after", "2")}
-                       ${http:header("x-http-cache-sync", "always")}
-                       ${http:header("x-poll-injected", "x-http-cache-sync, no-cache")}
-                       ${http:header("cache-control", "no-cache")}
-                       ${http:header("if-none-match", etag2)}
-                       ${http:header("if-modified-since", dateIn5)}
-
-write "hello world"
-
-write close
 
 

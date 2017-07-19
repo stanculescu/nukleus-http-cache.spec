@@ -48,7 +48,7 @@ public class ProxyIT
         "${streams}/proxy.request/connect/client",
         "${streams}/proxy.request/connect/server",
         })
-    public void shouldProxyRequest() throws Exception
+    public void proxyRequest() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_PROXY");
@@ -62,7 +62,7 @@ public class ProxyIT
         "${streams}/proxy.request.and.304/connect/client",
         "${streams}/proxy.request.and.304/connect/server",
     })
-    public void shouldProxyRequestWith304() throws Exception
+    public void proxyRequestWith304() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_PROXY");
@@ -76,7 +76,7 @@ public class ProxyIT
         "${streams}/proxy.request.and.follow.304/connect/client",
         "${streams}/proxy.request.and.follow.304/connect/server",
     })
-    public void shouldProxyRequestAndFollow304() throws Exception
+    public void proxyRequestAndFollow304() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_PROXY");
@@ -90,7 +90,7 @@ public class ProxyIT
         "${streams}/debounce.cache.sync/connect/client",
         "${streams}/debounce.cache.sync/connect/server",
     })
-    public void shouldDebounceCacheSync() throws Exception
+    public void debounceCacheSync() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_PROXY");
@@ -104,21 +104,7 @@ public class ProxyIT
         "${streams}/debounce.cache.sync.and.inject.individualized.push.promise/connect/client",
         "${streams}/debounce.cache.sync.and.inject.individualized.push.promise/connect/server",
     })
-    public void shouldDebounceCacheSyncAndInjectIndividualizedPushPromise() throws Exception
-    {
-        k3po.start();
-        k3po.notifyBarrier("ROUTED_PROXY");
-        k3po.finish();
-    }
-
-    @Test
-    @Specification({
-        "${streams}/debounce.cache.sync.and.individualize.push.promise/accept/client",
-        "${streams}/debounce.cache.sync.and.individualize.push.promise/accept/server",
-        "${streams}/debounce.cache.sync.and.individualize.push.promise/connect/client",
-        "${streams}/debounce.cache.sync.and.individualize.push.promise/connect/server",
-    })
-    public void shouldDebounceCacheSyncAndIndividualizePushPromise() throws Exception
+    public void debounceCacheSyncAndInjectIndividualizedPushPromise() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_PROXY");
@@ -132,7 +118,7 @@ public class ProxyIT
         "${streams}/debounce.cache.sync.but.not.forward.304/connect/client",
         "${streams}/debounce.cache.sync.but.not.forward.304/connect/server",
     })
-    public void shouldDebounceCacheSyncButNotForward304() throws Exception
+    public void debounceCacheSyncButNotForward304() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_PROXY");
@@ -146,7 +132,7 @@ public class ProxyIT
         "${streams}/debounce.cache.sync.but.not.forward.304.without.pp/connect/client",
         "${streams}/debounce.cache.sync.but.not.forward.304.without.pp/connect/server",
     })
-    public void shouldDebounceCacheSyncButNotForward304WithoutPP() throws Exception
+    public void debounceCacheSyncButNotForward304WithoutPP() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_PROXY");
@@ -160,7 +146,7 @@ public class ProxyIT
         "${streams}/not.debounce.multiple.requests/connect/client",
         "${streams}/not.debounce.multiple.requests/connect/server",
     })
-    public void shouldNotDebounceMultipleRequests() throws Exception
+    public void notDebounceMultipleRequests() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_PROXY");
@@ -174,7 +160,7 @@ public class ProxyIT
         "${streams}/not.debounce.private.cache/connect/client",
         "${streams}/not.debounce.private.cache/connect/server",
     })
-    public void shouldNotDebounceWhenCacheSyncPrivateCacheControl() throws Exception
+    public void notDebounceWhenCacheSyncPrivateCacheControl() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_PROXY");
@@ -188,7 +174,7 @@ public class ProxyIT
         "${streams}/not.debounce.implied.private/connect/client",
         "${streams}/not.debounce.implied.private/connect/server",
     })
-    public void shouldNotDebounceWhenImpliedCacheSyncPrivate() throws Exception
+    public void notDebounceWhenImpliedCacheSyncPrivate() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_PROXY");
@@ -202,7 +188,7 @@ public class ProxyIT
         "${streams}/debounce.when.explicitly.public/connect/client",
         "${streams}/debounce.when.explicitly.public/connect/server",
     })
-    public void shouldDebounceExplicitlyPublic() throws Exception
+    public void debounceExplicitlyPublic() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_PROXY");
@@ -216,7 +202,7 @@ public class ProxyIT
         "${streams}/not.debounce.varys/connect/client",
         "${streams}/not.debounce.varys/connect/server",
     })
-    public void shouldNotDebounceWhenVarys() throws Exception
+    public void notDebounceWhenVarys() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_PROXY");
@@ -230,7 +216,7 @@ public class ProxyIT
         "${streams}/cache.response/connect/client",
         "${streams}/cache.response/connect/server",
     })
-    public void shouldCacheResponse() throws Exception
+    public void cacheResponse() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_PROXY");
@@ -246,7 +232,7 @@ public class ProxyIT
     })
     @Ignore("TODO / Complete, plus need implementation of serving push promise " +
             "and stripping private headers?")
-    public void shouldCacheResponseAndPushPromise() throws Exception
+    public void cacheResponseAndPushPromise() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_PROXY");
@@ -260,7 +246,7 @@ public class ProxyIT
         "${streams}/proxy.post.request/connect/client",
         "${streams}/proxy.post.request/connect/server",
     })
-    public void shouldProxyPostRequest() throws Exception
+    public void proxyPostRequest() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_PROXY");
@@ -327,7 +313,7 @@ public class ProxyIT
     @Specification({
         "${streams}/nukleus.overloaded/accept/client",
         "${streams}/nukleus.overloaded/accept/server"})
-    public void shouldResetIfOOM() throws Exception
+    public void resetIfOOM() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_PROXY");
@@ -336,8 +322,8 @@ public class ProxyIT
 
     @Test
     @Specification({
-        "${streams}/client.sent.abort.on.scheduled.poll/accept/client",
-        "${streams}/client.sent.abort.on.scheduled.poll/accept/server"})
+        "${streams}/client.sent.abort.on.scheduled.poll/accept/client"
+    })
     public void clientSentAbortOnScheduledPoll() throws Exception
     {
         k3po.start();
