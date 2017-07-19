@@ -15,6 +15,7 @@
 #
 
 property newProxyConnectRef ${nuklei:newReferenceId()} # external scope
+property date ${http_cache:date()} # shared property
 
 connect await ROUTED_PROXY
         "nukleus://target/streams/http-cache"
@@ -29,6 +30,8 @@ write nukleus:begin.ext ${http:header(":scheme", "http")}
 
 read nukleus:begin.ext ${http:header(":status", "200")}
                        ${http:header("content-length", "11")}
+                       ${http:header("cache-control", "max-age=15")}
+                       ${http:header("last-modified", date)}
 
 connected
 

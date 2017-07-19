@@ -32,13 +32,15 @@ read nukleus:begin.ext ${http:header(":status", "200")}
 
 connected
 
+write notify CONNECT_CONNECT_MADE
+
 read "hello world"
 
 read closed
 
 write close
 
-connect await ROUTED_PROXY
+connect await CONNECT_CONNECT_MADE
         "nukleus://target/streams/http-cache"
         option nukleus:route ${newProxyConnectRef}
         option nukleus:window 8192

@@ -27,11 +27,7 @@ read nukleus:begin.ext ${http:header(":scheme", "http")}
                        ${http:header(":method", "GET")}
                        ${http:header(":path", "/path")}
                        ${http:header(":authority", "localhost:8080")}
-                       ${http:header("x-http-cache-sync", "always")}
                        ${http:header("authorization", "some-authorization-value")}
-
-write await REQUEST_1_MADE
-write await REQUEST_2_MADE
 
 write nukleus:begin.ext ${http:header(":status", "200")}
                         ${http:header("content-length", "11")}
@@ -39,11 +35,11 @@ write nukleus:begin.ext ${http:header(":status", "200")}
 
 connected
 
+read closed
+
 write "hello world"
 
 write close
-
-read closed
 
 accepted
 
@@ -51,19 +47,15 @@ read nukleus:begin.ext ${http:header(":scheme", "http")}
                        ${http:header(":method", "GET")}
                        ${http:header(":path", "/path")}
                        ${http:header(":authority", "localhost:8080")}
-                       ${http:header("x-http-cache-sync", "always")}
                        ${http:header("authorization", "some-authorization-value")}
-
-write await REQUEST_1_MADE
-write await REQUEST_2_MADE
 
 write nukleus:begin.ext ${http:header(":status", "200")}
                         ${http:header("content-length", "11")}
 
 connected
 
+read closed
+
 write "hello world"
 
 write close
-
-read closed
