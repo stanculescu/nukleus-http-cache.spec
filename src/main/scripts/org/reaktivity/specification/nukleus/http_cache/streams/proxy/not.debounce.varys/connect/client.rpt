@@ -26,7 +26,6 @@ write nukleus:begin.ext ${http:header(":scheme", "http")}
                         ${http:header(":method", "GET")}
                         ${http:header(":path", "/path")}
                         ${http:header(":authority", "localhost:8080")}
-                        ${http:header("x-http-cache-sync", "always")}
                         ${http:header("user-agent", "example/1")}
 
 read nukleus:begin.ext ${http:header(":status", "200")}
@@ -35,13 +34,15 @@ read nukleus:begin.ext ${http:header(":status", "200")}
 
 connected
 
+write notify CONNECT_CONNECT_MADE
+
 read "hello world"
 
 read closed
 
 write close
 
-connect await ROUTED_PROXY
+connect await CONNECT_CONNECT_MADE
         "nukleus://target/streams/http-cache"
         option nukleus:route ${newProxyConnectRef}
         option nukleus:window 8192
@@ -51,7 +52,6 @@ write nukleus:begin.ext ${http:header(":scheme", "http")}
                         ${http:header(":method", "GET")}
                         ${http:header(":path", "/path")}
                         ${http:header(":authority", "localhost:8080")}
-                        ${http:header("x-http-cache-sync", "always")}
                         ${http:header("user-agent", "example/2")}
 
 read nukleus:begin.ext ${http:header(":status", "200")}
