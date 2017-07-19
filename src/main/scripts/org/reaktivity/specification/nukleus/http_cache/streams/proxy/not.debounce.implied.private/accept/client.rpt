@@ -36,11 +36,11 @@ read nukleus:begin.ext ${http:header(":status", "200")}
 
 connected
 
+write close
+
 read "hello world"
 
 read closed
-
-write close
 
 # INPUT STREAM 2
 connect await ROUTED_PROXY
@@ -63,10 +63,11 @@ read nukleus:begin.ext ${http:header(":status", "200")}
 
 connected
 
+write close
+
 read "hello world"
 
 read closed
 
-write close
 
 

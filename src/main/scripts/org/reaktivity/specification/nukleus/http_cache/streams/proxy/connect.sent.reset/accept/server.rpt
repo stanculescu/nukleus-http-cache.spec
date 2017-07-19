@@ -24,7 +24,7 @@ accept await ROUTED_PROXY
 accepted
 
 read nukleus:begin.ext ${http:header(":scheme", "http")}
-                       ${http:header(":method", "GET")}
+                       ${http:header(":method", "POST")}
                        ${http:header(":path", "/path")}
                        ${http:header(":authority", "localhost:8080")}
 

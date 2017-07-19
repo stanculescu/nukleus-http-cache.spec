@@ -57,6 +57,34 @@ public class ProxyIT
 
     @Test
     @Specification({
+        "${streams}/proxy.request.and.304/accept/client",
+        "${streams}/proxy.request.and.304/accept/server",
+        "${streams}/proxy.request.and.304/connect/client",
+        "${streams}/proxy.request.and.304/connect/server",
+    })
+    public void shouldProxyRequestWith304() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "${streams}/proxy.request.and.follow.304/accept/client",
+        "${streams}/proxy.request.and.follow.304/accept/server",
+        "${streams}/proxy.request.and.follow.304/connect/client",
+        "${streams}/proxy.request.and.follow.304/connect/server",
+    })
+    public void shouldProxyRequestAndFollow304() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
         "${streams}/debounce.cache.sync/accept/client",
         "${streams}/debounce.cache.sync/accept/server",
         "${streams}/debounce.cache.sync/connect/client",
@@ -98,7 +126,6 @@ public class ProxyIT
     }
 
     @Test
-    @Ignore("https://github.com/reaktivity/k3po-nukleus-ext.java/issues/14")
     @Specification({
         "${streams}/debounce.cache.sync.but.not.forward.304/accept/client",
         "${streams}/debounce.cache.sync.but.not.forward.304/accept/server",
@@ -307,4 +334,98 @@ public class ProxyIT
         k3po.finish();
     }
 
+    @Test
+    @Specification({
+        "${streams}/client.sent.abort.on.scheduled.poll/accept/client",
+        "${streams}/client.sent.abort.on.scheduled.poll/accept/server"})
+    public void clientSentAbortOnScheduledPoll() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "${streams}/inject.header.values/accept/client",
+        "${streams}/inject.header.values/accept/server",
+        "${streams}/inject.header.values/connect/client",
+        "${streams}/inject.header.values/connect/server",
+    })
+    public void injectHeaderValues() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "${streams}/inject.missing.header.values/accept/client",
+        "${streams}/inject.missing.header.values/accept/server",
+        "${streams}/inject.missing.header.values/connect/client",
+        "${streams}/inject.missing.header.values/connect/server",
+    })
+    public void injectMissingHeaderValues() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "${streams}/inject.push.promise/accept/client",
+        "${streams}/inject.push.promise/accept/server",
+        "${streams}/inject.push.promise/connect/client",
+        "${streams}/inject.push.promise/connect/server",
+    })
+    public void injectPushPromise() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "${streams}/strip.injected.headers/accept/client",
+        "${streams}/strip.injected.headers/accept/server",
+        "${streams}/strip.injected.headers/connect/client",
+        "${streams}/strip.injected.headers/connect/server",
+    })
+    public void stripInjectedHeaders() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "${streams}/strip.injected.header.values/accept/client",
+        "${streams}/strip.injected.header.values/accept/server",
+        "${streams}/strip.injected.header.values/connect/client",
+        "${streams}/strip.injected.header.values/connect/server",
+    })
+    public void stripInjectedHeaderValues() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "${streams}/strip.missing.injected.header.values/accept/client",
+        "${streams}/strip.missing.injected.header.values/accept/server",
+        "${streams}/strip.missing.injected.header.values/connect/client",
+        "${streams}/strip.missing.injected.header.values/connect/server",
+    })
+    public void stripMissingInjectedHeaderValues() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
 }

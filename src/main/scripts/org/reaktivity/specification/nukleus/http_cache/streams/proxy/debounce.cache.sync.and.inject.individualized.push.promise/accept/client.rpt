@@ -31,8 +31,9 @@ write nukleus:begin.ext ${http:header(":scheme", "http")}
                         ${http:header(":path", "/path")}
                         ${http:header(":authority", "localhost:8080")}
                         ${http:header("user-agent", "client 1")}
+                        ${http:header("x-retry-after", "2")}
                         ${http:header("x-http-cache-sync", "always")}
-                        ${http:header("x-poll-injected", "no-cache")}
+                        ${http:header("x-poll-injected", "x-http-cache-sync, no-cache")}
                         ${http:header("cache-control", "no-cache")}
                         ${http:header("if-none-match", etag)}
                         ${http:header("if-modified-since", date)}
@@ -53,8 +54,9 @@ read nukleus:data.ext ${http:header(":scheme", "http")}
                       ${http:header(":path", "/path")}
                       ${http:header(":authority", "localhost:8080")}
                       ${http:header("user-agent", "client 1")}
+                      ${http:header("x-retry-after", "2")}
                       ${http:header("x-http-cache-sync", "always")}
-                      ${http:header("x-poll-injected", "no-cache")}
+                      ${http:header("x-poll-injected", "x-http-cache-sync, no-cache")}
                       ${http:header("cache-control", "no-cache")}
                       ${http:header("if-none-match", etag2)}
                       ${http:header("if-modified-since", dateIn5)}
@@ -75,8 +77,9 @@ write nukleus:begin.ext ${http:header(":scheme", "http")}
                         ${http:header(":path", "/path")}
                         ${http:header(":authority", "localhost:8080")}
                         ${http:header("user-agent", "client 2")}
+                        ${http:header("x-retry-after", "2")}
                         ${http:header("x-http-cache-sync", "always")}
-                        ${http:header("x-poll-injected", "no-cache")}
+                        ${http:header("x-poll-injected", "x-http-cache-sync, no-cache")}
                         ${http:header("cache-control", "no-cache")}
                         ${http:header("if-none-match", etag)}
                         ${http:header("if-modified-since", date)}
@@ -97,8 +100,9 @@ read nukleus:data.ext ${http:header(":scheme", "http")}
                       ${http:header(":path", "/path")}
                       ${http:header(":authority", "localhost:8080")}
                       ${http:header("user-agent", "client 2")}
+                      ${http:header("x-retry-after", "2")}
                       ${http:header("x-http-cache-sync", "always")}
-                      ${http:header("x-poll-injected", "no-cache")}
+                      ${http:header("x-poll-injected", "x-http-cache-sync, no-cache")}
                       ${http:header("cache-control", "no-cache")}
                       ${http:header("if-none-match", etag2)}
                       ${http:header("if-modified-since", dateIn5)}

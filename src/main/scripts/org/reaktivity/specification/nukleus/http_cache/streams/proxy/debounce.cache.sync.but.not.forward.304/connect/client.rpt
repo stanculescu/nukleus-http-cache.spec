@@ -49,7 +49,7 @@ read nukleus:data.ext ${http:header(":scheme", "http")}
                       ${http:header("cache-control", "no-cache")}
                       ${http:header("if-none-match", etag)}
 
-
+read /.*/ # https://github.com/reaktivity/k3po-nukleus-ext.java/issues/14
 read closed
 
 connect await ROUTED_PROXY
