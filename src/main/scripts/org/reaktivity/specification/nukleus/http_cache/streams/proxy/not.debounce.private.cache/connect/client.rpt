@@ -26,7 +26,6 @@ write nukleus:begin.ext ${http:header(":scheme", "http")}
                         ${http:header(":method", "GET")}
                         ${http:header(":path", "/path")}
                         ${http:header(":authority", "localhost:8080")}
-                        ${http:header("x-http-cache-sync", "always")}
 
 read nukleus:begin.ext ${http:header(":status", "200")}
                        ${http:header("content-length", "11")}
@@ -50,7 +49,6 @@ write nukleus:begin.ext ${http:header(":scheme", "http")}
                         ${http:header(":method", "GET")}
                         ${http:header(":path", "/path")}
                         ${http:header(":authority", "localhost:8080")}
-                        ${http:header("x-http-cache-sync", "always")}
 
 read nukleus:begin.ext ${http:header(":status", "200")}
                        ${http:header("content-length", "11")}

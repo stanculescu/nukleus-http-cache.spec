@@ -28,8 +28,9 @@ write nukleus:begin.ext ${http:header(":scheme", "http")}
                         ${http:header(":method", "GET")}
                         ${http:header(":path", "/path")}
                         ${http:header(":authority", "localhost:8080")}
+                        ${http:header("x-retry-after", "2")}
                         ${http:header("x-http-cache-sync", "always")}
-                        ${http:header("x-poll-injected", "no-cache")}
+                        ${http:header("x-poll-injected", "x-http-cache-sync, no-cache")}
                         ${http:header("cache-control", "no-cache")}
                         ${http:header("if-none-match", etag)}
 
@@ -37,18 +38,20 @@ write notify REQUEST_1_MADE
 
 read nukleus:begin.ext ${http:header(":status", "200")}
                        ${http:header("content-length", "11")}
-                       ${http:header("if-none-match", etag2)}
+                       ${http:header("etag", etag2)}
 
 connected
 
 write close
 
-read nukleus:data.ext ${http:header(":scheme", "http")}
+read nukleus:data.ext ${http:header("cache-control", "stale-while-revalidate=31536000")}
+                      ${http:header(":scheme", "http")}
                       ${http:header(":method", "GET")}
                       ${http:header(":path", "/path")}
                       ${http:header(":authority", "localhost:8080")}
+                      ${http:header("x-retry-after", "2")}
                       ${http:header("x-http-cache-sync", "always")}
-                      ${http:header("x-poll-injected", "no-cache")}
+                      ${http:header("x-poll-injected", "x-http-cache-sync, no-cache")}
                       ${http:header("cache-control", "no-cache")}
                       ${http:header("if-none-match", etag2)}
 
@@ -67,8 +70,9 @@ write nukleus:begin.ext ${http:header(":scheme", "http")}
                         ${http:header(":method", "GET")}
                         ${http:header(":path", "/path")}
                         ${http:header(":authority", "localhost:8080")}
+                        ${http:header("x-retry-after", "2")}
                         ${http:header("x-http-cache-sync", "always")}
-                        ${http:header("x-poll-injected", "no-cache")}
+                        ${http:header("x-poll-injected", "x-http-cache-sync, no-cache")}
                         ${http:header("cache-control", "no-cache")}
                         ${http:header("if-none-match", etag)}
 
@@ -76,17 +80,19 @@ write notify REQUEST_2_MADE
 
 read nukleus:begin.ext ${http:header(":status", "200")}
                        ${http:header("content-length", "11")}
-                       ${http:header("if-none-match", etag2)}
+                       ${http:header("etag", etag2)}
 connected
 
 write close
 
-read nukleus:data.ext ${http:header(":scheme", "http")}
+read nukleus:data.ext ${http:header("cache-control", "stale-while-revalidate=31536000")}
+                      ${http:header(":scheme", "http")}
                       ${http:header(":method", "GET")}
                       ${http:header(":path", "/path")}
                       ${http:header(":authority", "localhost:8080")}
+                      ${http:header("x-retry-after", "2")}
                       ${http:header("x-http-cache-sync", "always")}
-                      ${http:header("x-poll-injected", "no-cache")}
+                      ${http:header("x-poll-injected", "x-http-cache-sync, no-cache")}
                       ${http:header("cache-control", "no-cache")}
                       ${http:header("if-none-match", etag2)}
 

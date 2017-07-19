@@ -31,6 +31,7 @@ write nukleus:begin.ext ${http:header(":scheme", "http")}
                         ${http:header(":path", "/path")}
                         ${http:header(":authority", "localhost:8080")}
                         ${http:header("user-agent", "client 1")}
+                        ${http:header("x-retry-after", "2")}
                         ${http:header("if-none-match", etag)}
                         ${http:header("if-modified-since", date)}
 

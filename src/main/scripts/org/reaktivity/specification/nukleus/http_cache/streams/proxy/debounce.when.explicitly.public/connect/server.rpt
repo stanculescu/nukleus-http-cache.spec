@@ -27,7 +27,6 @@ read nukleus:begin.ext ${http:header(":scheme", "http")}
                        ${http:header(":method", "GET")}
                        ${http:header(":path", "/path")}
                        ${http:header(":authority", "localhost:8080")}
-                       ${http:header("x-http-cache-sync", "always")}
                        ${http:header("authorization", "some-authorization-value")}
 
 write await REQUEST_1_MADE

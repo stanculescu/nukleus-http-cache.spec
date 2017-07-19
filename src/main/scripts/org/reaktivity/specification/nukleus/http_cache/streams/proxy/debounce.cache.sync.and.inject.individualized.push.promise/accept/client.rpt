@@ -49,7 +49,8 @@ connected
 
 write close
 
-read nukleus:data.ext ${http:header(":scheme", "http")}
+read nukleus:data.ext ${http:header("cache-control", "stale-while-revalidate=31536000")}
+                      ${http:header(":scheme", "http")}
                       ${http:header(":method", "GET")}
                       ${http:header(":path", "/path")}
                       ${http:header(":authority", "localhost:8080")}
@@ -66,7 +67,7 @@ read "hello world"
 read closed
 
 # INPUT STREAM 2
-connect await ROUTED_PROXY
+connect await REQUEST_1_MADE
         "nukleus://http-cache/streams/source"
         option nukleus:route ${newProxyAcceptRef}
         option nukleus:window 8192
@@ -95,7 +96,8 @@ connected
 
 write close
 
-read nukleus:data.ext ${http:header(":scheme", "http")}
+read nukleus:data.ext ${http:header("cache-control", "stale-while-revalidate=31536000")}
+                      ${http:header(":scheme", "http")}
                       ${http:header(":method", "GET")}
                       ${http:header(":path", "/path")}
                       ${http:header(":authority", "localhost:8080")}

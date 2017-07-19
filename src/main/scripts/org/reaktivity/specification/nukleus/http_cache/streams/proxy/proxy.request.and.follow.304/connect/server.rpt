@@ -48,7 +48,6 @@ read nukleus:begin.ext ${http:header(":scheme", "http")}
                        ${http:header(":path", "/path")}
                        ${http:header(":authority", "localhost:8080")}
                        ${http:header("etag", etag)}
-                       ${http:header("x-poll-injected", "cache-sync")}
 
 write nukleus:begin.ext ${http:header(":status", "200")}
                         ${http:header("content-length", "11")}
