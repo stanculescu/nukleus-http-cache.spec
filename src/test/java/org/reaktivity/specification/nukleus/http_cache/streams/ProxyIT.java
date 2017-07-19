@@ -48,7 +48,7 @@ public class ProxyIT
         "${streams}/proxy.request/connect/client",
         "${streams}/proxy.request/connect/server",
         })
-    public void proxyRequest() throws Exception
+    public void shouldProxyRequest() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_PROXY");
@@ -62,7 +62,7 @@ public class ProxyIT
         "${streams}/proxy.request.and.304/connect/client",
         "${streams}/proxy.request.and.304/connect/server",
     })
-    public void proxyRequestWith304() throws Exception
+    public void shouldProxyRequestWith304() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_PROXY");
@@ -76,7 +76,7 @@ public class ProxyIT
         "${streams}/proxy.request.and.follow.304/connect/client",
         "${streams}/proxy.request.and.follow.304/connect/server",
     })
-    public void proxyRequestAndFollow304() throws Exception
+    public void shouldProxyRequestAndFollow304() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_PROXY");
@@ -90,7 +90,7 @@ public class ProxyIT
         "${streams}/debounce.cache.sync/connect/client",
         "${streams}/debounce.cache.sync/connect/server",
     })
-    public void debounceCacheSync() throws Exception
+    public void shouldDebounceCacheSync() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_PROXY");
@@ -104,7 +104,7 @@ public class ProxyIT
         "${streams}/debounce.cache.sync.and.inject.individualized.push.promise/connect/client",
         "${streams}/debounce.cache.sync.and.inject.individualized.push.promise/connect/server",
     })
-    public void debounceCacheSyncAndInjectIndividualizedPushPromise() throws Exception
+    public void shouldDebounceCacheSyncAndInjectIndividualizedPushPromise() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_PROXY");
@@ -118,7 +118,7 @@ public class ProxyIT
         "${streams}/debounce.cache.sync.but.not.forward.304/connect/client",
         "${streams}/debounce.cache.sync.but.not.forward.304/connect/server",
     })
-    public void debounceCacheSyncButNotForward304() throws Exception
+    public void shouldDebounceCacheSyncButNotForward304() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_PROXY");
@@ -132,7 +132,7 @@ public class ProxyIT
         "${streams}/debounce.cache.sync.but.not.forward.304.without.pp/connect/client",
         "${streams}/debounce.cache.sync.but.not.forward.304.without.pp/connect/server",
     })
-    public void debounceCacheSyncButNotForward304WithoutPP() throws Exception
+    public void shouldDebounceCacheSyncButNotForward304WithoutPP() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_PROXY");
@@ -146,7 +146,7 @@ public class ProxyIT
         "${streams}/not.debounce.multiple.requests/connect/client",
         "${streams}/not.debounce.multiple.requests/connect/server",
     })
-    public void notDebounceMultipleRequests() throws Exception
+    public void shouldNotDebounceMultipleRequests() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_PROXY");
@@ -160,7 +160,7 @@ public class ProxyIT
         "${streams}/not.debounce.private.cache/connect/client",
         "${streams}/not.debounce.private.cache/connect/server",
     })
-    public void notDebounceWhenCacheSyncPrivateCacheControl() throws Exception
+    public void shouldNotDebounceWhenCacheSyncPrivateCacheControl() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_PROXY");
@@ -174,7 +174,7 @@ public class ProxyIT
         "${streams}/not.debounce.implied.private/connect/client",
         "${streams}/not.debounce.implied.private/connect/server",
     })
-    public void notDebounceWhenImpliedCacheSyncPrivate() throws Exception
+    public void shouldNotDebounceWhenImpliedCacheSyncPrivate() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_PROXY");
@@ -188,7 +188,7 @@ public class ProxyIT
         "${streams}/debounce.when.explicitly.public/connect/client",
         "${streams}/debounce.when.explicitly.public/connect/server",
     })
-    public void debounceExplicitlyPublic() throws Exception
+    public void shouldDebounceExplicitlyPublic() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_PROXY");
@@ -202,7 +202,7 @@ public class ProxyIT
         "${streams}/not.debounce.varys/connect/client",
         "${streams}/not.debounce.varys/connect/server",
     })
-    public void notDebounceWhenVarys() throws Exception
+    public void shouldNotDebounceWhenVarys() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_PROXY");
@@ -216,7 +216,7 @@ public class ProxyIT
         "${streams}/cache.response/connect/client",
         "${streams}/cache.response/connect/server",
     })
-    public void cacheResponse() throws Exception
+    public void shouldCacheResponse() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_PROXY");
@@ -232,7 +232,7 @@ public class ProxyIT
     })
     @Ignore("TODO / Complete, plus need implementation of serving push promise " +
             "and stripping private headers?")
-    public void cacheResponseAndPushPromise() throws Exception
+    public void shouldCacheResponseAndPushPromise() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_PROXY");
@@ -246,7 +246,7 @@ public class ProxyIT
         "${streams}/proxy.post.request/connect/client",
         "${streams}/proxy.post.request/connect/server",
     })
-    public void proxyPostRequest() throws Exception
+    public void shouldProxyPostRequest() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_PROXY");
@@ -260,7 +260,7 @@ public class ProxyIT
         "${streams}/accept.sent.abort/connect/client",
         "${streams}/accept.sent.abort/connect/server",
     })
-    public void acceptSentAbort() throws Exception
+    public void shouldAcceptSentAbort() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_PROXY");
@@ -274,7 +274,7 @@ public class ProxyIT
         "${streams}/connect.reply.sent.abort/connect/client",
         "${streams}/connect.reply.sent.abort/connect/server",
     })
-    public void connectReplySentAbort() throws Exception
+    public void shouldConnectReplySentAbort() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_PROXY");
@@ -288,7 +288,7 @@ public class ProxyIT
         "${streams}/connect.sent.reset/connect/client",
         "${streams}/connect.sent.reset/connect/server",
     })
-    public void connectSentReset() throws Exception
+    public void shouldConnectSentReset() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_PROXY");
@@ -302,7 +302,7 @@ public class ProxyIT
         "${streams}/accept.reply.sent.reset/connect/client",
         "${streams}/accept.reply.sent.reset/connect/server",
     })
-    public void acceptReplySentReset() throws Exception
+    public void shouldAcceptReplySentReset() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_PROXY");
@@ -313,7 +313,7 @@ public class ProxyIT
     @Specification({
         "${streams}/nukleus.overloaded/accept/client",
         "${streams}/nukleus.overloaded/accept/server"})
-    public void resetIfOOM() throws Exception
+    public void shouldResetIfOOM() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_PROXY");
@@ -324,7 +324,7 @@ public class ProxyIT
     @Specification({
         "${streams}/client.sent.abort.on.scheduled.poll/accept/client"
     })
-    public void clientSentAbortOnScheduledPoll() throws Exception
+    public void shouldClientSentAbortOnScheduledPoll() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_PROXY");
@@ -338,7 +338,7 @@ public class ProxyIT
         "${streams}/inject.header.values/connect/client",
         "${streams}/inject.header.values/connect/server",
     })
-    public void injectHeaderValues() throws Exception
+    public void shouldInjectHeaderValues() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_PROXY");
@@ -352,7 +352,7 @@ public class ProxyIT
         "${streams}/inject.missing.header.values/connect/client",
         "${streams}/inject.missing.header.values/connect/server",
     })
-    public void injectMissingHeaderValues() throws Exception
+    public void shouldInjectMissingHeaderValues() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_PROXY");
@@ -366,7 +366,7 @@ public class ProxyIT
         "${streams}/inject.push.promise/connect/client",
         "${streams}/inject.push.promise/connect/server",
     })
-    public void injectPushPromise() throws Exception
+    public void shouldInjectPushPromise() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_PROXY");
@@ -380,7 +380,7 @@ public class ProxyIT
         "${streams}/strip.injected.headers/connect/client",
         "${streams}/strip.injected.headers/connect/server",
     })
-    public void stripInjectedHeaders() throws Exception
+    public void shouldStripInjectedHeaders() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_PROXY");
@@ -394,7 +394,7 @@ public class ProxyIT
         "${streams}/strip.injected.header.values/connect/client",
         "${streams}/strip.injected.header.values/connect/server",
     })
-    public void stripInjectedHeaderValues() throws Exception
+    public void shouldStripInjectedHeaderValues() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_PROXY");
@@ -408,7 +408,7 @@ public class ProxyIT
         "${streams}/strip.missing.injected.header.values/connect/client",
         "${streams}/strip.missing.injected.header.values/connect/server",
     })
-    public void stripMissingInjectedHeaderValues() throws Exception
+    public void shouldStripMissingInjectedHeaderValues() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_PROXY");

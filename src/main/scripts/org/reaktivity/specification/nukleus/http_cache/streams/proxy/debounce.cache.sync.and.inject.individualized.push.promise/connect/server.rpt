@@ -51,6 +51,3 @@ read closed
 write "hello world"
 
 write close
-
-
-

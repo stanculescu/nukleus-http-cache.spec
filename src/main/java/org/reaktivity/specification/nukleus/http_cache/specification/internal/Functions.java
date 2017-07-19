@@ -27,8 +27,16 @@ import org.kaazing.k3po.lang.el.spi.FunctionMapperSpi;
 
 public final class Functions
 {
-
     private static final MessageDigest MD5;
+
+    static ThreadLocal<SimpleDateFormat> dateFormat = new ThreadLocal<SimpleDateFormat>()
+    {
+        @Override
+        protected SimpleDateFormat initialValue()
+        {
+            return new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss");
+        }
+    };
 
     static
     {
@@ -44,7 +52,6 @@ public final class Functions
 
     public static class Mapper extends FunctionMapperSpi.Reflective
     {
-
         public Mapper()
         {
             super(Functions.class);
@@ -65,8 +72,7 @@ public final class Functions
     @Function
     public static String date()
     {
-        final SimpleDateFormat format = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss");
-        return format.format(new Date()) + " GMT";
+        return dateFormat.get().format(new Date()) + " GMT";
     }
 
     @Function

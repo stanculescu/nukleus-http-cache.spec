@@ -85,5 +85,3 @@ write nukleus:data.ext ${http:header(":scheme", "http")}
 write "hello world"
 
 write close
-
-
