@@ -32,7 +32,7 @@ read nukleus:begin.ext ${http:header(":scheme", "http")}
                        ${http:header(":method", "GET")}
                        ${http:header(":path", "/path")}
                        ${http:header(":authority", "localhost:8080")}
-                       ${http:header("user-agent", "client 2")}
+                       ${http:header("user-agent", "client 1")}
                        ${http:header("x-retry-after", "2")}
                        ${http:header("x-http-cache-sync", "always")}
                        ${http:header("x-poll-injected", "x-http-cache-sync, no-cache")}
@@ -54,7 +54,7 @@ write nukleus:data.ext ${http:header("cache-control", "stale-while-revalidate=31
                        ${http:header(":method", "GET")}
                        ${http:header(":path", "/path")}
                        ${http:header(":authority", "localhost:8080")}
-                       ${http:header("user-agent", "client 2")}
+                       ${http:header("user-agent", "client 1")}
                        ${http:header("x-retry-after", "2")}
                        ${http:header("x-http-cache-sync", "always")}
                        ${http:header("x-poll-injected", "x-http-cache-sync, no-cache")}
@@ -73,7 +73,7 @@ read nukleus:begin.ext ${http:header(":scheme", "http")}
                        ${http:header(":method", "GET")}
                        ${http:header(":path", "/path")}
                        ${http:header(":authority", "localhost:8080")}
-                       ${http:header("user-agent", "client 1")}
+                       ${http:header("user-agent", "client 2")}
                        ${http:header("x-retry-after", "2")}
                        ${http:header("x-http-cache-sync", "always")}
                        ${http:header("x-poll-injected", "x-http-cache-sync, no-cache")}
@@ -95,7 +95,7 @@ write nukleus:data.ext ${http:header("cache-control", "stale-while-revalidate=31
                        ${http:header(":method", "GET")}
                        ${http:header(":path", "/path")}
                        ${http:header(":authority", "localhost:8080")}
-                       ${http:header("user-agent", "client 1")}
+                       ${http:header("user-agent", "client 2")}
                        ${http:header("x-retry-after", "2")}
                        ${http:header("x-http-cache-sync", "always")}
                        ${http:header("x-poll-injected", "x-http-cache-sync, no-cache")}
