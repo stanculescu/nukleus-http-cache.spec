@@ -20,7 +20,7 @@ accept await ROUTED_INPUT
         "nukleus://http-cache/streams/source"
         option nukleus:route ${newServerAcceptRef}
         option nukleus:window 8192
-        option nukleus:transmission "duplex"
+        option nukleus:transmission "half-duplex"
 accepted
 
 read nukleus:begin.ext ${http:header(":scheme", "http")}
@@ -28,10 +28,11 @@ read nukleus:begin.ext ${http:header(":scheme", "http")}
                        ${http:header(":path", "/path")}
                        ${http:header(":authority", "localhost:8080")}
 
-write nukleus:begin.ext ${http:header(":status", "200")}
-                        ${http:header("content-type", "text/event-stream")}
-
 connected
 
 read closed
 
+write nukleus:begin.ext ${http:header(":status", "200")}
+                        ${http:header("content-type", "text/event-stream")}
+
+write flush

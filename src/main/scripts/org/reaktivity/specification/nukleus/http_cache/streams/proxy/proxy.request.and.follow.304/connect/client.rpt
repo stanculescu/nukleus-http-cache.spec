@@ -22,7 +22,7 @@ connect await ROUTED_PROXY
         "nukleus://target/streams/http-cache"
         option nukleus:route ${newProxyConnectRef}
         option nukleus:window 8192
-        option nukleus:transmission "duplex"
+        option nukleus:transmission "half-duplex"
 
 
 write nukleus:begin.ext ${http:header(":scheme", "http")}
@@ -31,13 +31,13 @@ write nukleus:begin.ext ${http:header(":scheme", "http")}
                         ${http:header(":authority", "localhost:8080")}
                         ${http:header("etag", etag)}
 
-read nukleus:begin.ext ${http:header(":status", "304")}
-                       ${http:header("content-length", "11")}
-                       ${http:header("etag", etag)}
-
 connected
 
 write close
+
+read nukleus:begin.ext ${http:header(":status", "304")}
+                       ${http:header("content-length", "11")}
+                       ${http:header("etag", etag)}
 
 read closed
 
@@ -45,7 +45,7 @@ connect await ROUTED_PROXY
         "nukleus://target/streams/http-cache"
         option nukleus:route ${newProxyConnectRef}
         option nukleus:window 8192
-        option nukleus:transmission "duplex"
+        option nukleus:transmission "half-duplex"
 
 write nukleus:begin.ext ${http:header(":scheme", "http")}
                         ${http:header(":method", "GET")}
@@ -53,12 +53,12 @@ write nukleus:begin.ext ${http:header(":scheme", "http")}
                         ${http:header(":authority", "localhost:8080")}
                         ${http:header("etag", etag)}
 
-read nukleus:begin.ext ${http:header(":status", "200")}
-                       ${http:header("content-length", "11")}
-
 connected
 
 write close
+
+read nukleus:begin.ext ${http:header(":status", "200")}
+                       ${http:header("content-length", "11")}
 
 read "hello world"
 

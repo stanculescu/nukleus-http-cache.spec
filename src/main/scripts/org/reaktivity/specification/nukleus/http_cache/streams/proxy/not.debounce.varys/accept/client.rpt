@@ -20,7 +20,7 @@ connect await ROUTED_PROXY
         "nukleus://http-cache/streams/source"
         option nukleus:route ${newProxyAcceptRef}
         option nukleus:window 8192
-        option nukleus:transmission "duplex"
+        option nukleus:transmission "half-duplex"
 
 write nukleus:begin.ext ${http:header(":scheme", "http")}
                         ${http:header(":method", "GET")}
@@ -30,26 +30,26 @@ write nukleus:begin.ext ${http:header(":scheme", "http")}
                         ${http:header("user-agent", "example/1")}
 
 
+connected
+
+write close
+
+write notify ACCEPT_CONNECT_MADE
+
 read nukleus:begin.ext ${http:header(":status", "200")}
                        ${http:header("content-length", "11")}
                        ${http:header("vary", "user-agent")}
 
-connected
-
-write notify ACCEPT_CONNECT_MADE
-
 read "hello world"
 
 read closed
-
-write close
 
 # INPUT STREAM 2
 connect await ACCEPT_CONNECT_MADE
         "nukleus://http-cache/streams/source"
         option nukleus:route ${newProxyAcceptRef}
         option nukleus:window 8192
-        option nukleus:transmission "duplex"
+        option nukleus:transmission "half-duplex"
 
 write nukleus:begin.ext ${http:header(":scheme", "http")}
                         ${http:header(":method", "GET")}
@@ -58,16 +58,16 @@ write nukleus:begin.ext ${http:header(":scheme", "http")}
                         ${http:header("x-http-cache-sync", "always")}
                         ${http:header("user-agent", "example/2")}
 
+connected
+
+write close
+
+write notify ACCEPT_CONNECT2_MADE
+
 read nukleus:begin.ext ${http:header(":status", "200")}
                        ${http:header("content-length", "11")}
                        ${http:header("vary", "user-agent")}
 
-connected
-
-write notify ACCEPT_CONNECT2_MADE
-
 read "hello world"
 
 read closed
-
-write close

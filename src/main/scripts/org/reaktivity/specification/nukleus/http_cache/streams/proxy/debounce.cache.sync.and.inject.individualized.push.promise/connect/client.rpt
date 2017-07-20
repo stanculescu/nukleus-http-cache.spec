@@ -24,7 +24,7 @@ connect await ROUTED_PROXY
         "nukleus://target/streams/http-cache"
         option nukleus:route ${newProxyConnectRef}
         option nukleus:window 8192
-        option nukleus:transmission "duplex"
+        option nukleus:transmission "half-duplex"
 
 write nukleus:begin.ext ${http:header(":scheme", "http")}
                         ${http:header(":method", "GET")}
@@ -36,16 +36,16 @@ write nukleus:begin.ext ${http:header(":scheme", "http")}
                         ${http:header("if-modified-since", date)}
 
 
+connected
+
+write close
+
+write notify ACCEPT_CONNECT2_MADE # Assumed
+
 read nukleus:begin.ext ${http:header(":status", "200")}
                        ${http:header("content-length", "11")}
                        ${http:header("last-modified", dateIn5)}
                        ${http:header("etag", etag2)}
-
-connected
-
-write notify ACCEPT_CONNECT2_MADE # Assumed
-
-write close
 
 read "hello world"
 
