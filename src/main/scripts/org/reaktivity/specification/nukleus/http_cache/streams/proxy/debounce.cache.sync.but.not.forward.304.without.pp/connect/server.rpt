@@ -32,11 +32,13 @@ read nukleus:begin.ext ${http:header(":scheme", "http")}
                        ${http:header("x-retry-after", "2")}
                        ${http:header("if-none-match", etag)}
 
+
 write nukleus:begin.ext ${http:header(":status", "304")}
                         ${http:header("content-length", "11")}
 
 connected
 
+write await  ACCEPT_CONNECT2_MADE
 read closed
 
 write close

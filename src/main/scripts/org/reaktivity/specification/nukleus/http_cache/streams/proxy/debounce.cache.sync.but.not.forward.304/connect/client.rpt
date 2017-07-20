@@ -33,12 +33,13 @@ write nukleus:begin.ext ${http:header(":scheme", "http")}
                         ${http:header("cache-control", "no-cache")}
                         ${http:header("if-none-match", etag)}
 
+
 read nukleus:begin.ext ${http:header(":status", "304")}
                        ${http:header("content-length", "11")}
 
 connected
 
-write notify CONNECT_CONNECT_MADE
+write notify ACCEPT_CONNECT2_MADE # Assumed
 
 write close
 
@@ -53,6 +54,7 @@ read nukleus:data.ext ${http:header(":scheme", "http")}
 
 read /.*/ # https://github.com/reaktivity/k3po-nukleus-ext.java/issues/14
 read closed
+read notify CONNECT_CONNECT_MADE
 
 connect await CONNECT_CONNECT_MADE
         "nukleus://target/streams/http-cache"

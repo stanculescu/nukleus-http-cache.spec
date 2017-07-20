@@ -71,6 +71,8 @@ write nukleus:begin.ext ${http:header(":scheme", "http")}
                         ${http:header("cache-control", "no-cache")}
                         ${http:header("if-none-match", etag)}
 
+write notify ACCEPT_CONNECT2_MADE
+
 read nukleus:begin.ext ${http:header(":status", "200")}
                        ${http:header("content-length", "11")}
 

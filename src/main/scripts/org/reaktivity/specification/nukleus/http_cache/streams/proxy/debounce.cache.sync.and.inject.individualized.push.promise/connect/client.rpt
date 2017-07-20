@@ -35,12 +35,15 @@ write nukleus:begin.ext ${http:header(":scheme", "http")}
                         ${http:header("if-none-match", etag)}
                         ${http:header("if-modified-since", date)}
 
+
 read nukleus:begin.ext ${http:header(":status", "200")}
                        ${http:header("content-length", "11")}
                        ${http:header("last-modified", dateIn5)}
                        ${http:header("etag", etag2)}
 
 connected
+
+write notify ACCEPT_CONNECT2_MADE # Assumed
 
 write close
 

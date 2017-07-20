@@ -55,12 +55,14 @@ write nukleus:begin.ext ${http:header(":scheme", "http")}
                         ${http:header(":authority", "localhost:8080")}
                         ${http:header("x-http-cache-sync", "always")}
 
+
 read nukleus:begin.ext ${http:header(":status", "200")}
                        ${http:header("content-length", "11")}
                        ${http:header("cache-control", "private")}
 
 connected
 
+write notify ACCEPT_CONNECT2_MADE
 read "hello world"
 
 read closed

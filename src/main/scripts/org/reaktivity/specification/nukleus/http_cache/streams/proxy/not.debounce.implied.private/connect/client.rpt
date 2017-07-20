@@ -28,18 +28,17 @@ write nukleus:begin.ext ${http:header(":scheme", "http")}
                         ${http:header(":authority", "localhost:8080")}
                         ${http:header("authorization", "some-authorization-value")}
 
+
 read nukleus:begin.ext ${http:header(":status", "200")}
                        ${http:header("content-length", "11")}
 
 connected
-
-write notify CONNECT_CONNECT_MADE
-
+write notify ACCEPT_CONNECT2_MADE # Assumed
 write close
 
 read "hello world"
-
 read closed
+read notify CONNECT_CONNECT_MADE
 
 connect await CONNECT_CONNECT_MADE
         "nukleus://target/streams/http-cache"

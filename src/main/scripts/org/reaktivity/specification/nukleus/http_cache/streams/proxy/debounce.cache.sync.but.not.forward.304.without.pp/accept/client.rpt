@@ -76,11 +76,13 @@ write nukleus:begin.ext ${http:header(":scheme", "http")}
                         ${http:header("cache-control", "no-cache")}
                         ${http:header("if-none-match", etag)}
 
+
 read nukleus:begin.ext ${http:header(":status", "200")}
                        ${http:header("content-length", "11")}
                        ${http:header("etag", etag2)}
 connected
 
+write notify ACCEPT_CONNECT2_MADE
 write close
 
 read nukleus:data.ext ${http:header("cache-control", "stale-while-revalidate=31536000")}

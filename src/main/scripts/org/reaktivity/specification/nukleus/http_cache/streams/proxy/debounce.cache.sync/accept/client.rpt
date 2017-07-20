@@ -59,6 +59,8 @@ read nukleus:begin.ext ${http:header(":status", "200")}
 
 connected
 
+write notify ACCEPT_CONNECT2_MADE
+
 read "hello world"
 
 read closed

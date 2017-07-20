@@ -31,16 +31,18 @@ write nukleus:begin.ext ${http:header(":scheme", "http")}
                         ${http:header("x-retry-after", "2")}
                         ${http:header("if-none-match", etag)}
 
+
 read nukleus:begin.ext ${http:header(":status", "304")}
                        ${http:header("content-length", "11")}
 
 connected
 
-write notify CONNECT_CONNECT_MADE
+write notify ACCEPT_CONNECT2_MADE # Assumed
 
 write close
 
 read closed
+read notify CONNECT_CONNECT_MADE
 
 connect await CONNECT_CONNECT_MADE
         "nukleus://target/streams/http-cache"
