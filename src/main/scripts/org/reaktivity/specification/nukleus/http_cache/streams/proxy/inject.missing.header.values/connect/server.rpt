@@ -20,7 +20,7 @@ accept await ROUTED_PROXY
         "nukleus://target/streams/http-cache"
         option nukleus:route ${newProxyConnectRef}
         option nukleus:window 8192
-        option nukleus:transmission "duplex"
+        option nukleus:transmission "half-duplex"
 accepted
 
 read nukleus:begin.ext ${http:header(":scheme", "http")}
@@ -30,14 +30,14 @@ read nukleus:begin.ext ${http:header(":scheme", "http")}
                        ${http:header("x-retry-after", "2")}
                        ${http:header("cache-control", "no-cache")}
 
+connected
+
+read closed
+
 write nukleus:begin.ext ${http:header(":status", "200")}
                         ${http:header("content-length", "11")}
                         ${http:header("cache-control", "response-cache-directive")}
 
-connected
-
 write "hello world"
 
 write close
-
-read closed

@@ -22,7 +22,7 @@ accept await ROUTED_PROXY
         "nukleus://target/streams/http-cache"
         option nukleus:route ${newProxyConnectRef}
         option nukleus:window 8192
-        option nukleus:transmission "duplex"
+        option nukleus:transmission "half-duplex"
 accepted
 
 read nukleus:begin.ext ${http:header(":scheme", "http")}
@@ -34,12 +34,16 @@ read nukleus:begin.ext ${http:header(":scheme", "http")}
                        ${http:header("cache-control", "no-cache")}
                        ${http:header("if-none-match", etag)}
 
-write nukleus:begin.ext ${http:header(":status", "304")}
-                        ${http:header("content-length", "11")}
-
 connected
 
 read closed
+
+write await  ACCEPT_CONNECT2_MADE
+
+write nukleus:begin.ext ${http:header(":status", "304")}
+                        ${http:header("content-length", "11")}
+
+write flush
 
 write nukleus:data.ext ${http:header(":scheme", "http")}
                        ${http:header(":method", "GET")}
@@ -65,10 +69,14 @@ read nukleus:begin.ext ${http:header(":scheme", "http")}
                        ${http:header("cache-control", "no-cache")}
                        ${http:header("if-none-match", etag)}
 
+connected
+
+read closed
+
 write nukleus:begin.ext ${http:header(":status", "200")}
                         ${http:header("content-length", "11")}
 
-connected
+write flush
 
 write nukleus:data.ext ${http:header(":scheme", "http")}
                        ${http:header(":method", "GET")}
@@ -79,9 +87,6 @@ write nukleus:data.ext ${http:header(":scheme", "http")}
                        ${http:header("cache-control", "no-cache")}
                        ${http:header("if-none-match", etag2)}
 
-read closed
-
 write "hello world"
 
 write close
-

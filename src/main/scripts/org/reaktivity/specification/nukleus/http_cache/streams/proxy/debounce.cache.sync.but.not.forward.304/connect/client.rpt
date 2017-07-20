@@ -22,7 +22,7 @@ connect await ROUTED_PROXY
         "nukleus://target/streams/http-cache"
         option nukleus:route ${newProxyConnectRef}
         option nukleus:window 8192
-        option nukleus:transmission "duplex"
+        option nukleus:transmission "half-duplex"
 
 write nukleus:begin.ext ${http:header(":scheme", "http")}
                         ${http:header(":method", "GET")}
@@ -33,14 +33,14 @@ write nukleus:begin.ext ${http:header(":scheme", "http")}
                         ${http:header("cache-control", "no-cache")}
                         ${http:header("if-none-match", etag)}
 
-read nukleus:begin.ext ${http:header(":status", "304")}
-                       ${http:header("content-length", "11")}
-
 connected
 
-write notify CONNECT_CONNECT_MADE
-
 write close
+
+write notify ACCEPT_CONNECT2_MADE # Assumed
+
+read nukleus:begin.ext ${http:header(":status", "304")}
+                       ${http:header("content-length", "11")}
 
 read nukleus:data.ext ${http:header(":scheme", "http")}
                       ${http:header(":method", "GET")}
@@ -53,12 +53,13 @@ read nukleus:data.ext ${http:header(":scheme", "http")}
 
 read /.*/ # https://github.com/reaktivity/k3po-nukleus-ext.java/issues/14
 read closed
+read notify CONNECT_CONNECT_MADE
 
 connect await CONNECT_CONNECT_MADE
         "nukleus://target/streams/http-cache"
         option nukleus:route ${newProxyConnectRef}
         option nukleus:window 8192
-        option nukleus:transmission "duplex"
+        option nukleus:transmission "half-duplex"
 
 write nukleus:begin.ext ${http:header(":scheme", "http")}
                         ${http:header(":method", "GET")}
@@ -69,12 +70,12 @@ write nukleus:begin.ext ${http:header(":scheme", "http")}
                         ${http:header("cache-control", "no-cache")}
                         ${http:header("if-none-match", etag)}
 
-read nukleus:begin.ext ${http:header(":status", "200")}
-                       ${http:header("content-length", "11")}
-
 connected
 
 write close
+
+read nukleus:begin.ext ${http:header(":status", "200")}
+                       ${http:header("content-length", "11")}
 
 read nukleus:data.ext ${http:header(":scheme", "http")}
                       ${http:header(":method", "GET")}

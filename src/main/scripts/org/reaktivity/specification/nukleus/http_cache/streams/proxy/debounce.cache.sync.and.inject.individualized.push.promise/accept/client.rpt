@@ -24,7 +24,7 @@ connect await ROUTED_PROXY
         "nukleus://http-cache/streams/source"
         option nukleus:route ${newProxyAcceptRef}
         option nukleus:window 8192
-        option nukleus:transmission "duplex"
+        option nukleus:transmission "half-duplex"
 
 write nukleus:begin.ext ${http:header(":scheme", "http")}
                         ${http:header(":method", "GET")}
@@ -38,19 +38,19 @@ write nukleus:begin.ext ${http:header(":scheme", "http")}
                         ${http:header("if-none-match", etag)}
                         ${http:header("if-modified-since", date)}
 
+connected
+
+write close
+
+write notify ACCEPT_CONNECT_MADE
+
 read nukleus:begin.ext ${http:header(":status", "200")}
                        ${http:header("content-length", "11")}
                        ${http:header("last-modified", dateIn5)}
                        ${http:header("etag", etag2)}
+                       ${http:header("cache-control", "stale-while-revalidate=31536000")}
 
-connected
-
-write notify ACCEPT_CONNECT_MADE
-
-write close
-
-read nukleus:data.ext ${http:header("cache-control", "stale-while-revalidate=31536000")}
-                      ${http:header(":scheme", "http")}
+read nukleus:data.ext ${http:header(":scheme", "http")}
                       ${http:header(":method", "GET")}
                       ${http:header(":path", "/path")}
                       ${http:header(":authority", "localhost:8080")}
@@ -71,7 +71,7 @@ connect await ACCEPT_CONNECT_MADE
         "nukleus://http-cache/streams/source"
         option nukleus:route ${newProxyAcceptRef}
         option nukleus:window 8192
-        option nukleus:transmission "duplex"
+        option nukleus:transmission "half-duplex"
 
 write nukleus:begin.ext ${http:header(":scheme", "http")}
                         ${http:header(":method", "GET")}
@@ -85,17 +85,19 @@ write nukleus:begin.ext ${http:header(":scheme", "http")}
                         ${http:header("if-none-match", etag)}
                         ${http:header("if-modified-since", date)}
 
-read nukleus:begin.ext ${http:header(":status", "200")}
-                       ${http:header("content-length", "11")}
-                       ${http:header("last-modified", dateIn5)}
-                       ${http:header("etag", etag2)}
-
 connected
 
 write close
 
-read nukleus:data.ext ${http:header("cache-control", "stale-while-revalidate=31536000")}
-                      ${http:header(":scheme", "http")}
+write notify ACCEPT_CONNECT2_MADE
+
+read nukleus:begin.ext ${http:header(":status", "200")}
+                       ${http:header("content-length", "11")}
+                       ${http:header("last-modified", dateIn5)}
+                       ${http:header("etag", etag2)}
+                       ${http:header("cache-control", "stale-while-revalidate=31536000")}
+
+read nukleus:data.ext ${http:header(":scheme", "http")}
                       ${http:header(":method", "GET")}
                       ${http:header(":path", "/path")}
                       ${http:header(":authority", "localhost:8080")}
