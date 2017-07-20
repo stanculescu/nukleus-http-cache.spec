@@ -16,24 +16,23 @@
 
 property newProxyAcceptRef ${nukleus:newRouteRef()} # external scope
 
-connect await ROUTED_PROXY
+accept await ROUTED_PROXY
         "nukleus://http-cache/streams/source"
         option nukleus:route ${newProxyAcceptRef}
         option nukleus:window 8192
-        option nukleus:transmission "half-duplex"
+        option nukleus:transmission "simplex"
 
-write nukleus:begin.ext ${http:header(":scheme", "http")}
-                        ${http:header(":method", "GET")}
-                        ${http:header(":path", "/path")}
-                        ${http:header(":authority", "localhost:8080")}
+accepted
 
 connected
 
-write close
+read nukleus:begin.ext ${http:header(":scheme", "http")}
+                        ${http:header(":method", "GET")}
+                        ${http:header(":path", "/data")}
+                        ${http:header(":authority", "localhost:8080")}
+                        ${http:header("x-retry-after", "2")}
+                        ${http:header("x-poll-injected", "x-http-cache-sync, no-cache")}
+                        ${http:header("cache-control", "no-cache")}
+                        ${http:header("x-http-cache-sync", "always")}
 
-read nukleus:begin.ext ${http:header(":status", "200")}
-                       ${http:header("content-length", "11")}
-
-read "hello world"
-
-read closed
+read aborted

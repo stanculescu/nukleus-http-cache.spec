@@ -22,7 +22,7 @@ connect await ROUTED_PROXY
         "nukleus://target/streams/http-cache"
         option nukleus:route ${newProxyConnectRef}
         option nukleus:window 8192
-        option nukleus:transmission "duplex"
+        option nukleus:transmission "half-duplex"
 
 write nukleus:begin.ext ${http:header(":scheme", "http")}
                         ${http:header(":method", "GET")}
@@ -31,22 +31,23 @@ write nukleus:begin.ext ${http:header(":scheme", "http")}
                         ${http:header("x-retry-after", "2")}
                         ${http:header("if-none-match", etag)}
 
-read nukleus:begin.ext ${http:header(":status", "304")}
-                       ${http:header("content-length", "11")}
-
 connected
 
-write notify CONNECT_CONNECT_MADE
+write notify ACCEPT_CONNECT2_MADE # Assumed
 
 write close
 
+read nukleus:begin.ext ${http:header(":status", "304")}
+                       ${http:header("content-length", "11")}
+
 read closed
+read notify CONNECT_CONNECT_MADE
 
 connect await CONNECT_CONNECT_MADE
         "nukleus://target/streams/http-cache"
         option nukleus:route ${newProxyConnectRef}
         option nukleus:window 8192
-        option nukleus:transmission "duplex"
+        option nukleus:transmission "half-duplex"
 
 write nukleus:begin.ext ${http:header(":scheme", "http")}
                         ${http:header(":method", "GET")}
@@ -55,13 +56,13 @@ write nukleus:begin.ext ${http:header(":scheme", "http")}
                         ${http:header("x-retry-after", "2")}
                         ${http:header("if-none-match", etag)}
 
-read nukleus:begin.ext ${http:header(":status", "200")}
-                       ${http:header("content-length", "11")}
-                       ${http:header("etag", etag2)}
-
 connected
 
 write close
+
+read nukleus:begin.ext ${http:header(":status", "200")}
+                       ${http:header("content-length", "11")}
+                       ${http:header("etag", etag2)}
 
 read "hello world"
 

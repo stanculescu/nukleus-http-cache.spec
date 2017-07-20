@@ -21,50 +21,49 @@ connect await ROUTED_PROXY
         "nukleus://http-cache/streams/source"
         option nukleus:route ${newProxyAcceptRef}
         option nukleus:window 8192
-        option nukleus:transmission "duplex"
+        option nukleus:transmission "half-duplex"
 
 write nukleus:begin.ext ${http:header(":scheme", "http")}
                         ${http:header(":method", "GET")}
                         ${http:header(":path", "/path")}
                         ${http:header(":authority", "localhost:8080")}
 
+
+connected
+
+write close
 read nukleus:begin.ext ${http:header(":status", "200")}
                        ${http:header("content-length", "11")}
                        ${http:header("cache-control", "max-age=15")}
                        ${http:header("last-modified", date)}
 
-connected
-
 read "hello world"
 
 read closed
+read notify REQUEST_CACHED
 
-write close
-write notify REQUEST_CACHED
 
 # INPUT STREAM 2
 connect await REQUEST_CACHED
         "nukleus://http-cache/streams/source"
         option nukleus:route ${newProxyAcceptRef}
         option nukleus:window 8192
-        option nukleus:transmission "duplex"
+        option nukleus:transmission "half-duplex"
 
 write nukleus:begin.ext ${http:header(":scheme", "http")}
                         ${http:header(":method", "GET")}
                         ${http:header(":path", "/path")}
                         ${http:header(":authority", "localhost:8080")}
 
+connected
+
+write close
+
 read nukleus:begin.ext ${http:header(":status", "200")}
                        ${http:header("content-length", "11")}
                        ${http:header("cache-control", "max-age=15")}
                        ${http:header("last-modified", date)}
 
-connected
-
 read "hello world"
 
 read closed
-
-write close
-
-

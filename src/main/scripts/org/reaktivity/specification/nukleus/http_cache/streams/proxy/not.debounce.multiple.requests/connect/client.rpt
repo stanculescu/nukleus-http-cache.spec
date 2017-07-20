@@ -20,44 +20,46 @@ connect await ROUTED_PROXY
         "nukleus://target/streams/http-cache"
         option nukleus:route ${newProxyConnectRef}
         option nukleus:window 8192
-        option nukleus:transmission "duplex"
+        option nukleus:transmission "half-duplex"
 
 write nukleus:begin.ext ${http:header(":scheme", "http")}
                         ${http:header(":method", "GET")}
                         ${http:header(":path", "/path")}
                         ${http:header(":authority", "localhost:8080")}
 
-read nukleus:begin.ext ${http:header(":status", "200")}
-                       ${http:header("content-length", "11")}
 
 connected
 
-write notify CONNECT_CONNECT_MADE
+write close
+
+write notify ACCEPT_CONNECT2_MADE # Assumed
+
+read nukleus:begin.ext ${http:header(":status", "200")}
+                       ${http:header("content-length", "11")}
 
 read "hello world"
 
 read closed
-
-write close
+read notify CONNECT_CONNECT_MADE
 
 connect await CONNECT_CONNECT_MADE
         "nukleus://target/streams/http-cache"
         option nukleus:route ${newProxyConnectRef}
         option nukleus:window 8192
-        option nukleus:transmission "duplex"
+        option nukleus:transmission "half-duplex"
 
 write nukleus:begin.ext ${http:header(":scheme", "http")}
                         ${http:header(":method", "GET")}
                         ${http:header(":path", "/path")}
                         ${http:header(":authority", "localhost:8080")}
 
+connected
+
+write close
+
 read nukleus:begin.ext ${http:header(":status", "200")}
                        ${http:header("content-length", "11")}
-
-connected
 
 read "hello world"
 
 read closed
-
-write close
