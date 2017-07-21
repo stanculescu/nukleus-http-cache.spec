@@ -27,7 +27,7 @@ import org.kaazing.k3po.junit.annotation.Specification;
 import org.kaazing.k3po.junit.rules.K3poRule;
 import org.reaktivity.specification.nukleus.NukleusRule;
 
-public class ProxyAcceptIT
+public class ProxyConnectExceptionsIT
 {
     private final K3poRule k3po = new K3poRule()
             .addScriptRoot("streams", "org/reaktivity/specification/nukleus/http_cache/streams/proxy");
@@ -42,10 +42,10 @@ public class ProxyAcceptIT
 
     @Test
     @Specification({
-        "${streams}/proxy.get.request/accept/client",
-        "${streams}/proxy.get.request/accept/server",
-        })
-    public void shouldProxyGetRequest() throws Exception
+        "${streams}/accept.sent.abort/connect/client",
+        "${streams}/accept.sent.abort/connect/server",
+    })
+    public void shouldAcceptSentAbort() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_PROXY");
@@ -54,10 +54,10 @@ public class ProxyAcceptIT
 
     @Test
     @Specification({
-        "${streams}/proxy.post.request/accept/client",
-        "${streams}/proxy.post.request/accept/server",
+        "${streams}/connect.reply.sent.abort/connect/client",
+        "${streams}/connect.reply.sent.abort/connect/server",
     })
-    public void shouldProxyPostRequest() throws Exception
+    public void shouldConnectReplySentAbort() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_PROXY");
@@ -66,10 +66,10 @@ public class ProxyAcceptIT
 
     @Test
     @Specification({
-        "${streams}/proxy.request.and.304/accept/client",
-        "${streams}/proxy.request.and.304/accept/server",
+        "${streams}/connect.sent.reset/connect/client",
+        "${streams}/connect.sent.reset/connect/server",
     })
-    public void shouldProxyRequestWith304() throws Exception
+    public void shouldConnectSentReset() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_PROXY");
@@ -78,65 +78,13 @@ public class ProxyAcceptIT
 
     @Test
     @Specification({
-        "${streams}/cache.max-age/accept/client",
-        "${streams}/cache.max-age/accept/server",
+        "${streams}/accept.reply.sent.reset/connect/client",
+        "${streams}/accept.reply.sent.reset/connect/server",
     })
-    public void shouldCacheMaxAge() throws Exception
+    public void shouldAcceptReplySentReset() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_PROXY");
         k3po.finish();
     }
-
-    @Test
-    @Specification({
-        "${streams}/expire.max-age/accept/client",
-        "${streams}/expire.max-age/accept/server",
-    })
-    public void shouldExpireMaxAge() throws Exception
-    {
-        k3po.start();
-        k3po.notifyBarrier("ROUTED_PROXY");
-        k3po.finish();
-    }
-    @Test
-    @Specification({
-        "${streams}/cache.s-maxage/accept/client",
-        "${streams}/cache.s-maxage/accept/server",
-    })
-    public void shouldCacheSMaxage() throws Exception
-    {
-        k3po.start();
-        k3po.notifyBarrier("ROUTED_PROXY");
-        k3po.finish();
-    }
-
-    @Test
-    @Specification({
-        "${streams}/expire.s-maxage/accept/client",
-        "${streams}/expire.s-maxage/accept/server",
-    })
-    public void shouldExpireSMaxage() throws Exception
-    {
-        k3po.start();
-        k3po.notifyBarrier("ROUTED_PROXY");
-        k3po.finish();
-    }
-
-    // TODO expires headers
-    // TODO quoted maxage header
-    // TODO quoted smaxage header
-
-    @Test
-    @Specification({
-        "${streams}/expire.s-maxage/accept/client",
-        "${streams}/expire.s-maxage/accept/server",
-    })
-    public void shouldCache() throws Exception
-    {
-        k3po.start();
-        k3po.notifyBarrier("ROUTED_PROXY");
-        k3po.finish();
-    }
-
 }

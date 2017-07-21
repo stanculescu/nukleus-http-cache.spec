@@ -18,7 +18,6 @@ package org.reaktivity.specification.nukleus.http_cache.streams;
 import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.junit.rules.RuleChain.outerRule;
 
-import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.DisableOnDebug;
@@ -43,48 +42,10 @@ public class ProxyConnectIT
 
     @Test
     @Specification({
-        "${streams}/proxy.request/connect/client",
-        "${streams}/proxy.request/connect/server",
+        "${streams}/proxy.get.request/connect/client",
+        "${streams}/proxy.get.request/connect/server",
         })
-    public void shouldProxyRequest() throws Exception
-    {
-        k3po.start();
-        k3po.notifyBarrier("ROUTED_PROXY");
-        k3po.finish();
-    }
-
-    @Test
-    @Specification({
-        "${streams}/proxy.request.and.304/connect/client",
-        "${streams}/proxy.request.and.304/connect/server",
-    })
-    public void shouldProxyRequestWith304() throws Exception
-    {
-        k3po.start();
-        k3po.notifyBarrier("ROUTED_PROXY");
-        k3po.finish();
-    }
-
-    @Test
-    @Specification({
-        "${streams}/cache.response/connect/client",
-        "${streams}/cache.response/connect/server",
-    })
-    public void shouldCacheResponse() throws Exception
-    {
-        k3po.start();
-        k3po.notifyBarrier("ROUTED_PROXY");
-        k3po.finish();
-    }
-
-    @Test
-    @Specification({
-        "${streams}/cache.response.and.push.promise/connect/client",
-        "${streams}/cache.response.and.push.promise/connect/server",
-    })
-    @Ignore("TODO / Complete, plus need implementation of serving push promise " +
-            "and stripping private headers?")
-    public void shouldCacheResponseAndPushPromise() throws Exception
+    public void shouldProxyGetRequest() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_PROXY");
@@ -105,10 +66,10 @@ public class ProxyConnectIT
 
     @Test
     @Specification({
-        "${streams}/accept.sent.abort/connect/client",
-        "${streams}/accept.sent.abort/connect/server",
+        "${streams}/proxy.request.and.304/connect/client",
+        "${streams}/proxy.request.and.304/connect/server",
     })
-    public void shouldAcceptSentAbort() throws Exception
+    public void shouldProxyRequestWith304() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_PROXY");
@@ -117,10 +78,10 @@ public class ProxyConnectIT
 
     @Test
     @Specification({
-        "${streams}/connect.reply.sent.abort/connect/client",
-        "${streams}/connect.reply.sent.abort/connect/server",
+        "${streams}/cache.max-age/connect/client",
+        "${streams}/cache.max-age/connect/server",
     })
-    public void shouldConnectReplySentAbort() throws Exception
+    public void shouldCacheMaxAge() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_PROXY");
@@ -129,25 +90,18 @@ public class ProxyConnectIT
 
     @Test
     @Specification({
-        "${streams}/connect.sent.reset/connect/client",
-        "${streams}/connect.sent.reset/connect/server",
+        "${streams}/expire.max-age/connect/client",
+        "${streams}/expire.max-age/connect/server",
     })
-    public void shouldConnectSentReset() throws Exception
+    public void shouldExpireMaxAge() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_PROXY");
         k3po.finish();
     }
 
-    @Test
-    @Specification({
-        "${streams}/accept.reply.sent.reset/connect/client",
-        "${streams}/accept.reply.sent.reset/connect/server",
-    })
-    public void shouldAcceptReplySentReset() throws Exception
-    {
-        k3po.start();
-        k3po.notifyBarrier("ROUTED_PROXY");
-        k3po.finish();
-    }
+    // TODO expires headers
+    // TODO quoted maxage header
+    // TODO quoted smaxage header
+
 }
