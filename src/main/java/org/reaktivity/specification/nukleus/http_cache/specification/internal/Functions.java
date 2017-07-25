@@ -21,6 +21,8 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Random;
+import java.util.TimeZone;
 
 import org.kaazing.k3po.lang.el.Function;
 import org.kaazing.k3po.lang.el.spi.FunctionMapperSpi;
@@ -28,13 +30,17 @@ import org.kaazing.k3po.lang.el.spi.FunctionMapperSpi;
 public final class Functions
 {
     private static final MessageDigest MD5;
+    private static final String[] CACHEABLE_BY_DEFAULT_STATUS_CODES =
+        { "200", "203", "204", "206", "300", "301", "404", "405", "410", "414", "501" };
 
     static ThreadLocal<SimpleDateFormat> dateFormat = new ThreadLocal<SimpleDateFormat>()
     {
         @Override
         protected SimpleDateFormat initialValue()
         {
-            return new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss");
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss zzz");
+            simpleDateFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
+            return simpleDateFormat;
         }
     };
 
@@ -72,15 +78,14 @@ public final class Functions
     @Function
     public static String date()
     {
-        return dateFormat.get().format(new Date()) + " GMT";
+        return dateFormat.get().format(new Date());
     }
 
     @Function
     public static String datePlus(int seconds)
     {
-        final SimpleDateFormat format = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss");
         final Date date = new Date(currentTimeMillis() + (seconds * 1000));
-        return format.format(date) + " GMT";
+        return dateFormat.get().format(date);
     }
 
     @Function
@@ -93,5 +98,13 @@ public final class Functions
     public static String weakEtag()
     {
         return "W/" + strongEtag();
+    }
+
+    @Function
+    public static String randomCacheableByDefaultStatusCode()
+    {
+        int rnd = new Random().nextInt(CACHEABLE_BY_DEFAULT_STATUS_CODES.length);
+        return CACHEABLE_BY_DEFAULT_STATUS_CODES[rnd];
+
     }
 }

@@ -36,7 +36,7 @@ read closed
 
 write nukleus:begin.ext ${http:header(":status", "200")}
                         ${http:header("content-length", "11")}
-                        ${http:header("cache-control", "response-cache-directive, stale-while-revalidate=31536000")}
+                        ${http:header("cache-control", "response-cache-directive, stale-while-revalidate=2147483648")}
 
 write flush
 
