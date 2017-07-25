@@ -15,6 +15,7 @@
 #
 
 property newProxyAcceptRef ${nukleus:newRouteRef()} # external scope
+property date ${http_cache:date()} # shared property
 
 accept await ROUTED_PROXY
         "nukleus://http-cache/streams/source"
@@ -27,23 +28,28 @@ read nukleus:begin.ext ${http:header(":scheme", "http")}
                        ${http:header(":method", "GET")}
                        ${http:header(":path", "/path")}
                        ${http:header(":authority", "localhost:8080")}
-
+                       ${http:header("user-agent", "user-agent-1")}
+                       ${http:header("x-retry-after", "2")}
 connected
 
 read closed
 
 write nukleus:begin.ext ${http:header(":status", "200")}
                         ${http:header("content-length", "11")}
+                        ${http:header("date", date)}
+                        ${http:header("cache-control", "s-maxage=50, stale-while-revalidate=2147483648")}
 
 write flush
 
 write nukleus:data.ext ${http:header(":scheme", "http")}
                        ${http:header(":method", "GET")}
-                       ${http:header(":path", "/data")}
+                       ${http:header(":path", "/path")}
                        ${http:header(":authority", "localhost:8080")}
-                       ${http:header("x-poll-interval", "2")}
-                       ${http:header("x-poll-injected", "http-push-sync, no-cache")}
+                       ${http:header("user-agent", "user-agent-1")}
+                       ${http:header("x-retry-after", "2")}
+                       ${http:header("x-poll-injected", "x-http-cache-sync, no-cache")}
                        ${http:header("cache-control", "no-cache")}
+                       ${http:header("x-http-cache-sync", "always")}
 write "hello world"
 
 write close
@@ -55,23 +61,28 @@ read nukleus:begin.ext ${http:header(":scheme", "http")}
                        ${http:header(":method", "GET")}
                        ${http:header(":path", "/path")}
                        ${http:header(":authority", "localhost:8080")}
-
+                       ${http:header("user-agent", "user-agent-2")}
+                       ${http:header("x-retry-after", "2")}
 connected
 
 read closed
 
 write nukleus:begin.ext ${http:header(":status", "200")}
                         ${http:header("content-length", "11")}
+                        ${http:header("date", date)}
+                         ${http:header("cache-control", "s-maxage=50, stale-while-revalidate=2147483648")}
 
 write flush
 
 write nukleus:data.ext ${http:header(":scheme", "http")}
                        ${http:header(":method", "GET")}
-                       ${http:header(":path", "/data")}
+                       ${http:header(":path", "/path")}
                        ${http:header(":authority", "localhost:8080")}
-                       ${http:header("x-poll-interval", "2")}
-                       ${http:header("x-poll-injected", "http-push-sync, no-cache")}
+                       ${http:header("user-agent", "user-agent-2")}
+                       ${http:header("x-retry-after", "2")}
+                       ${http:header("x-poll-injected", "x-http-cache-sync, no-cache")}
                        ${http:header("cache-control", "no-cache")}
+                       ${http:header("x-http-cache-sync", "always")}
 
 write "hello world"
 

@@ -36,6 +36,7 @@ write notify ACCEPT_CONNECT2_MADE # Assumed
 
 read nukleus:begin.ext ${http:header(":status", "200")}
                        ${http:header("content-length", "11")}
+                       ${http:header("cache-control", "no-cache")}
 
 read "hello world"
 
@@ -59,6 +60,7 @@ write close
 
 read nukleus:begin.ext ${http:header(":status", "200")}
                        ${http:header("content-length", "11")}
+                       ${http:header("cache-control", "no-cache")}
 
 read "hello world"
 

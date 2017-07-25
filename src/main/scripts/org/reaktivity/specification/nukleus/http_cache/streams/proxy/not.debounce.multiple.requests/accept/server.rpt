@@ -34,6 +34,7 @@ read closed
 
 write nukleus:begin.ext ${http:header(":status", "200")}
                         ${http:header("content-length", "11")}
+                        ${http:header("cache-control", "no-cache")}
 
 write "hello world"
 
@@ -52,6 +53,7 @@ read closed
 
 write nukleus:begin.ext ${http:header(":status", "200")}
                         ${http:header("content-length", "11")}
+                        ${http:header("cache-control", "no-cache")}
 
 write "hello world"
 
