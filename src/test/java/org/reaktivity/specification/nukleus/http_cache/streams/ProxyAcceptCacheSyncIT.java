@@ -18,7 +18,6 @@ package org.reaktivity.specification.nukleus.http_cache.streams;
 import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.junit.rules.RuleChain.outerRule;
 
-import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.DisableOnDebug;
@@ -40,6 +39,18 @@ public class ProxyAcceptCacheSyncIT
 
     @Rule
     public final TestRule chain = outerRule(nukleus).around(k3po).around(timeout);
+
+    @Test
+    @Specification({
+        "${streams}/cache.response.and.push.promise/accept/client",
+        "${streams}/cache.response.and.push.promise/accept/server",
+    })
+    public void shouldUseCachedResponseAndSendPushPromise() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
 
     @Test
     @Specification({
@@ -221,17 +232,4 @@ public class ProxyAcceptCacheSyncIT
         k3po.finish();
     }
 
-    @Test
-    @Specification({
-        "${streams}/cache.response.and.push.promise/accept/client",
-        "${streams}/cache.response.and.push.promise/accept/server",
-    })
-    @Ignore("TODO / Complete, plus need implementation of serving push promise " +
-            "and stripping private headers?")
-    public void shouldUseCachedResponseAndSendPushPromise() throws Exception
-    {
-        k3po.start();
-        k3po.notifyBarrier("ROUTED_PROXY");
-        k3po.finish();
-    }
 }

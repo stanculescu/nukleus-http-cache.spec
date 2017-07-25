@@ -27,7 +27,7 @@ import org.kaazing.k3po.junit.annotation.Specification;
 import org.kaazing.k3po.junit.rules.K3poRule;
 import org.reaktivity.specification.nukleus.NukleusRule;
 
-public class ProxyAcceptIT
+public class ProxyAcceptCacheIT
 {
     private final K3poRule k3po = new K3poRule()
             .addScriptRoot("streams", "org/reaktivity/specification/nukleus/http_cache/streams/proxy");
@@ -99,6 +99,7 @@ public class ProxyAcceptIT
         k3po.notifyBarrier("ROUTED_PROXY");
         k3po.finish();
     }
+
     @Test
     @Specification({
         "${streams}/cache.s-maxage/accept/client",
@@ -129,14 +130,113 @@ public class ProxyAcceptIT
 
     @Test
     @Specification({
-        "${streams}/expire.s-maxage/accept/client",
-        "${streams}/expire.s-maxage/accept/server",
+        "${streams}/cache.by.default.for.5.seconds/accept/client",
+        "${streams}/cache.by.default.for.5.seconds/accept/server",
     })
-    public void shouldCache() throws Exception
+    public void shouldCacheDefaultCacheableFor5Seconds() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_PROXY");
         k3po.finish();
     }
 
+    @Test
+    @Specification({
+        "${streams}/expire.cache.by.default.for.5.seconds/accept/client",
+        "${streams}/expire.cache.by.default.for.5.seconds/accept/server",
+    })
+    public void shouldExpireCacheDefaultCacheableFor5Seconds() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "${streams}/cache.by.default.for.10.percent.of.last-modified/accept/client",
+        "${streams}/cache.by.default.for.10.percent.of.last-modified/accept/server",
+    })
+    public void shouldCacheDefaultFor10PercentOfLastModified() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "${streams}/expire.cache.by.default.for.10.percent.of.last-modified/accept/client",
+        "${streams}/expire.cache.by.default.for.10.percent.of.last-modified/accept/server",
+    })
+    public void shouldExpireCacheDefaultFor10PercentOfLastModified() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "${streams}/private.cache/accept/client",
+        "${streams}/private.cache/accept/server",
+    })
+    public void shouldNotUsePrivateCache() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "${streams}/implied.private.cache/accept/client",
+        "${streams}/implied.private.cache/accept/server",
+    })
+    public void shouldNotUseImpliedPrivateCache() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "${streams}/explicitly.public.cache/accept/client",
+        "${streams}/explicitly.public.cache/accept/server",
+    })
+    public void shouldUseExplicitlyPublicCache() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "${streams}/not.use.cache.that.varys/accept/client",
+        "${streams}/not.use.cache.that.varys/accept/server",
+    })
+    public void shouldNotUseCacheForRequestThatVarys() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "${streams}/cache.that.varys.but.matches/accept/client",
+        "${streams}/cache.that.varys.but.matches/accept/server",
+    })
+    public void shouldUseCacheForRequestThatMatchesVarys() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    // TODO cache that exceeds response max storage size
+    // TODO no-cache does not use cache
+    // TODO 304 on etags or last-modified
 }

@@ -15,6 +15,7 @@
 #
 
 property newProxyConnectRef ${nuklei:newReferenceId()} # external scope
+property date ${http_cache:date()} # shared property
 
 accept await ROUTED_PROXY
         "nukleus://target/streams/http-cache"
@@ -35,16 +36,8 @@ read closed
 
 write nukleus:begin.ext ${http:header(":status", "200")}
                         ${http:header("content-length", "11")}
-
-write flush
-
-write nukleus:data.ext ${http:header(":scheme", "http")}
-                       ${http:header(":method", "GET")}
-                       ${http:header(":path", "/data")}
-                       ${http:header(":authority", "localhost:8080")}
-                       ${http:header("x-poll-interval", "2")}
-                       ${http:header("x-poll-injected", "http-push-sync, no-cache")}
-                       ${http:header("cache-control", "no-cache")}
+                        ${http:header("date", date)}
+                        ${http:header("cache-control", "s-maxage=50")}
 
 write "hello world"
 

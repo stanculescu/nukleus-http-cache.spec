@@ -29,7 +29,6 @@ read nukleus:begin.ext ${http:header(":scheme", "http")}
                        ${http:header(":path", "/path")}
                        ${http:header(":authority", "localhost:8080")}
 
-
 connected
 
 read closed
@@ -37,6 +36,7 @@ read closed
 write nukleus:begin.ext ${http:header(":status", "200")}
                         ${http:header("content-length", "11")}
                         ${http:header("cache-control", "max-age=15")}
+                        ${http:header("date", date)}
                         ${http:header("last-modified", date)}
 write "hello world"
 
@@ -57,6 +57,7 @@ read closed
 write nukleus:begin.ext ${http:header(":status", "200")}
                         ${http:header("content-length", "11")}
                         ${http:header("cache-control", "max-age=15")}
+                        ${http:header("date", date)}
                         ${http:header("last-modified", date)}
 
 write "hello world"
