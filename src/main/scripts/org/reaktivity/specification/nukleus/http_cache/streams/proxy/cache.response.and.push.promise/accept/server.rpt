@@ -37,7 +37,7 @@ read closed
 write nukleus:begin.ext ${http:header(":status", "200")}
                         ${http:header("content-length", "11")}
                         ${http:header("date", date)}
-                        ${http:header("cache-control", "s-maxage=50")}
+                        ${http:header("cache-control", "s-maxage=50, stale-while-revalidate=2147483648")}
 
 write flush
 
@@ -61,7 +61,8 @@ read nukleus:begin.ext ${http:header(":scheme", "http")}
                        ${http:header(":method", "GET")}
                        ${http:header(":path", "/path")}
                        ${http:header(":authority", "localhost:8080")}
-
+                       ${http:header("user-agent", "user-agent-2")}
+                       ${http:header("x-retry-after", "2")}
 connected
 
 read closed
@@ -69,7 +70,7 @@ read closed
 write nukleus:begin.ext ${http:header(":status", "200")}
                         ${http:header("content-length", "11")}
                         ${http:header("date", date)}
-                        ${http:header("cache-control", "s-maxage=50")}
+                         ${http:header("cache-control", "s-maxage=50, stale-while-revalidate=2147483648")}
 
 write flush
 
