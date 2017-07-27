@@ -150,6 +150,18 @@ public class ProxyConnectCacheSyncIT
 
     @Test
     @Specification({
+        "${streams}/cache.is.not.stale.if.revalidating/connect/client",
+        "${streams}/cache.is.not.stale.if.revalidating/connect/server",
+    })
+    public void shouldServeFromCacheWhenNotStaleIfRevalidating() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
         "${streams}/debounce.cache.sync.and.inject.individualized.push.promise/connect/client",
         "${streams}/debounce.cache.sync.and.inject.individualized.push.promise/connect/server",
     })
