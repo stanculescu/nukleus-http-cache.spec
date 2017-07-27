@@ -102,6 +102,66 @@ public class ProxyConnectCacheSyncIT
 
     @Test
     @Specification({
+        "${streams}/proxy.request.and.follow.304/connect/client",
+        "${streams}/proxy.request.and.follow.304/connect/server",
+    })
+    public void shouldProxyRequestAndFollow304() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "${streams}/not.forward.response.to.push.promise.if.unchanged/connect/client",
+        "${streams}/not.forward.response.to.push.promise.if.unchanged/connect/server",
+    })
+    public void shouldNotForwardResponseToPushPromiseIfUnchanged() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "${streams}/not.forward.fragmented.response.to.push.promise.if.unchanged/connect/client",
+        "${streams}/not.forward.fragmented.response.to.push.promise.if.unchanged/connect/server",
+    })
+    public void shouldNotForwardFragmentedResponseToPushPromiseIfUnchanged() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "${streams}/forward.appended.cache.update/connect/client",
+        "${streams}/forward.appended.cache.update/connect/server",
+    })
+    public void shouldForwardAppendedCacheUpdate() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "${streams}/cache.is.not.stale.if.revalidating/connect/client",
+        "${streams}/cache.is.not.stale.if.revalidating/connect/server",
+    })
+    public void shouldServeFromCacheWhenNotStaleIfRevalidating() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
         "${streams}/debounce.cache.sync.and.inject.individualized.push.promise/connect/client",
         "${streams}/debounce.cache.sync.and.inject.individualized.push.promise/connect/server",
     })
