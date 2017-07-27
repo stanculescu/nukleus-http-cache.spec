@@ -23,6 +23,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Random;
 import java.util.TimeZone;
+import java.util.concurrent.ThreadLocalRandom;
 
 import org.kaazing.k3po.lang.el.Function;
 import org.kaazing.k3po.lang.el.spi.FunctionMapperSpi;
@@ -41,15 +42,6 @@ public final class Functions
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss zzz");
             simpleDateFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
             return simpleDateFormat;
-        }
-    };
-
-    private static final ThreadLocal<Random> RANDOM = new ThreadLocal<Random>()
-    {
-        @Override
-        protected Random initialValue()
-        {
-            return new Random();
         }
     };
 
@@ -112,7 +104,7 @@ public final class Functions
     @Function
     public static String randomCacheableByDefaultStatusCode()
     {
-        int rnd = RANDOM.get().nextInt(CACHEABLE_BY_DEFAULT_STATUS_CODES.length);
+        int rnd = ThreadLocalRandom.current().nextInt(CACHEABLE_BY_DEFAULT_STATUS_CODES.length);
         return CACHEABLE_BY_DEFAULT_STATUS_CODES[rnd];
 
     }
@@ -130,7 +122,7 @@ public final class Functions
         for (int offset = start; offset < end;)
         {
             int remaining = end - offset;
-            int width = Math.min(RANDOM.get().nextInt(4) + 1, remaining);
+            int width = Math.min(ThreadLocalRandom.current().nextInt(4) + 1, remaining);
 
             offset = randomCharBytesUTF8(bytes, offset, width);
         }
@@ -138,7 +130,7 @@ public final class Functions
 
     private static int randomCharBytesUTF8(byte[] bytes, int offset, int width)
     {
-        final Random random = RANDOM.get();
+        ThreadLocalRandom random = ThreadLocalRandom.current();
         switch (width)
         {
             case 1:
