@@ -89,6 +89,6 @@ read nukleus:data.ext ${http:header(":scheme", "http")}
                       ${http:header("cache-control", "no-cache")}
                       ${http:header("x-http-cache-sync", "always")}
 
-read "hello alien"
+read "hello world and aliens"
 
 read closed

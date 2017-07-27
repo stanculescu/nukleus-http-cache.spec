@@ -85,7 +85,7 @@ write nukleus:data.ext ${http:header(":scheme", "http")}
                        ${http:header("cache-control", "no-cache")}
                        ${http:header("x-http-cache-sync", "always")}
 
-write "hello alien"
+write "hello world and aliens"
 
 write close
 

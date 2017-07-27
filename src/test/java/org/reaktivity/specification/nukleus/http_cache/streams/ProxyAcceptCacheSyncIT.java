@@ -126,6 +126,30 @@ public class ProxyAcceptCacheSyncIT
 
     @Test
     @Specification({
+        "${streams}/not.forward.fragmented.response.to.push.promise.if.unchanged/accept/client",
+        "${streams}/not.forward.fragmented.response.to.push.promise.if.unchanged/accept/server",
+    })
+    public void shouldNotForwardFragmentedResponseToPushPromiseIfUnchanged() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "${streams}/forward.appended.cache.update/accept/client",
+        "${streams}/forward.appended.cache.update/accept/server",
+    })
+    public void shouldForwardAppendedCacheUpdate() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
         "${streams}/debounce.cache.sync.and.inject.individualized.push.promise/accept/client",
         "${streams}/debounce.cache.sync.and.inject.individualized.push.promise/accept/server",
     })
