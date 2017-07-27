@@ -102,6 +102,18 @@ public class ProxyAcceptCacheIT
 
     @Test
     @Specification({
+        "${streams}/should.bypass.cache.on.no.cache/accept/client",
+        "${streams}/should.bypass.cache.on.no.cache/accept/server",
+    })
+    public void shouldByPassCacheOnNoCache() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
         "${streams}/cache.s-maxage/accept/client",
         "${streams}/cache.s-maxage/accept/server",
     })
@@ -248,6 +260,5 @@ public class ProxyAcceptCacheIT
         k3po.finish();
     }
 
-    // TODO no-cache does not use cache
     // TODO 304 on etags or last-modified
 }
