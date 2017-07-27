@@ -54,7 +54,6 @@ public class ProxyConnectCacheIT
 
     @Test
     @Specification({
-        "${route}/proxy/controller",
         "${streams}/proxy.get.request.with.body/connect/client",
         "${streams}/proxy.get.request.with.body/connect/server",
         })

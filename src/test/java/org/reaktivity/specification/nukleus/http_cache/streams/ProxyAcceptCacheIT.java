@@ -54,7 +54,6 @@ public class ProxyAcceptCacheIT
 
     @Test
     @Specification({
-        "${route}/proxy/controller",
         "${streams}/proxy.get.request.with.body/accept/client",
         "${streams}/proxy.get.request.with.body/accept/server",
         })
