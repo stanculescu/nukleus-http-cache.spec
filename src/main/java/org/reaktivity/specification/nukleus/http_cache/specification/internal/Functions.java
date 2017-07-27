@@ -29,12 +29,11 @@ import org.kaazing.k3po.lang.el.spi.FunctionMapperSpi;
 
 public final class Functions
 {
-    private static final Random RANDOM = new Random();
     private static final MessageDigest MD5;
     private static final String[] CACHEABLE_BY_DEFAULT_STATUS_CODES =
         { "200", "203", "204", "206", "300", "301", "404", "405", "410", "414", "501" };
 
-    static ThreadLocal<SimpleDateFormat> dateFormat = new ThreadLocal<SimpleDateFormat>()
+    private static final ThreadLocal<SimpleDateFormat> DATE_FORMAT = new ThreadLocal<SimpleDateFormat>()
     {
         @Override
         protected SimpleDateFormat initialValue()
@@ -42,6 +41,15 @@ public final class Functions
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss zzz");
             simpleDateFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
             return simpleDateFormat;
+        }
+    };
+
+    private static final ThreadLocal<Random> RANDOM = new ThreadLocal<Random>()
+    {
+        @Override
+        protected Random initialValue()
+        {
+            return new Random();
         }
     };
 
@@ -79,14 +87,14 @@ public final class Functions
     @Function
     public static String date()
     {
-        return dateFormat.get().format(new Date());
+        return DATE_FORMAT.get().format(new Date());
     }
 
     @Function
     public static String datePlus(int seconds)
     {
         final Date date = new Date(currentTimeMillis() + (seconds * 1000));
-        return dateFormat.get().format(date);
+        return DATE_FORMAT.get().format(date);
     }
 
     @Function
@@ -104,7 +112,7 @@ public final class Functions
     @Function
     public static String randomCacheableByDefaultStatusCode()
     {
-        int rnd = RANDOM.nextInt(CACHEABLE_BY_DEFAULT_STATUS_CODES.length);
+        int rnd = RANDOM.get().nextInt(CACHEABLE_BY_DEFAULT_STATUS_CODES.length);
         return CACHEABLE_BY_DEFAULT_STATUS_CODES[rnd];
 
     }
@@ -122,7 +130,7 @@ public final class Functions
         for (int offset = start; offset < end;)
         {
             int remaining = end - offset;
-            int width = Math.min(RANDOM.nextInt(4) + 1, remaining);
+            int width = Math.min(RANDOM.get().nextInt(4) + 1, remaining);
 
             offset = randomCharBytesUTF8(bytes, offset, width);
         }
@@ -130,28 +138,29 @@ public final class Functions
 
     private static int randomCharBytesUTF8(byte[] bytes, int offset, int width)
     {
+        final Random random = RANDOM.get();
         switch (width)
         {
-        case 1:
-            bytes[offset++] = (byte) RANDOM.nextInt(0x80);
-            break;
-        case 2:
-            bytes[offset++] = (byte) (0xc0 | RANDOM.nextInt(0x20) | 1 << (RANDOM.nextInt(4) + 1));
-            bytes[offset++] = (byte) (0x80 | RANDOM.nextInt(0x40));
-            break;
-        case 3:
-            // UTF-8 not legal for 0xD800 through 0xDFFF (see RFC 3269)
-            bytes[offset++] = (byte) (0xe0 | RANDOM.nextInt(0x08) | 1 << RANDOM.nextInt(3));
-            bytes[offset++] = (byte) (0x80 | RANDOM.nextInt(0x40));
-            bytes[offset++] = (byte) (0x80 | RANDOM.nextInt(0x40));
-            break;
-        case 4:
-            // UTF-8 ends at 0x10FFFF (see RFC 3269)
-            bytes[offset++] = (byte) (0xf0 | RANDOM.nextInt(0x04) | 1 << RANDOM.nextInt(2));
-            bytes[offset++] = (byte) (0x80 | RANDOM.nextInt(0x10));
-            bytes[offset++] = (byte) (0x80 | RANDOM.nextInt(0x40));
-            bytes[offset++] = (byte) (0x80 | RANDOM.nextInt(0x40));
-            break;
+            case 1:
+                bytes[offset++] = (byte) random.nextInt(0x80);
+                break;
+            case 2:
+                bytes[offset++] = (byte) (0xc0 | random.nextInt(0x20) | 1 << (random.nextInt(4) + 1));
+                bytes[offset++] = (byte) (0x80 | random.nextInt(0x40));
+                break;
+            case 3:
+                // UTF-8 not legal for 0xD800 through 0xDFFF (see RFC 3269)
+                bytes[offset++] = (byte) (0xe0 | random.nextInt(0x08) | 1 << random.nextInt(3));
+                bytes[offset++] = (byte) (0x80 | random.nextInt(0x40));
+                bytes[offset++] = (byte) (0x80 | random.nextInt(0x40));
+                break;
+            case 4:
+                // UTF-8 ends at 0x10FFFF (see RFC 3269)
+                bytes[offset++] = (byte) (0xf0 | random.nextInt(0x04) | 1 << random.nextInt(2));
+                bytes[offset++] = (byte) (0x80 | random.nextInt(0x10));
+                bytes[offset++] = (byte) (0x80 | random.nextInt(0x40));
+                bytes[offset++] = (byte) (0x80 | random.nextInt(0x40));
+                break;
         }
         return offset;
     }
