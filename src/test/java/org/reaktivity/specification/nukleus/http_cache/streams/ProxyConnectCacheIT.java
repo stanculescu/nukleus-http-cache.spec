@@ -236,4 +236,16 @@ public class ProxyConnectCacheIT
         k3po.notifyBarrier("ROUTED_PROXY");
         k3po.finish();
     }
+
+    @Test
+    @Specification({
+        "${streams}/proxy.response.too.large.to.cache/connect/client",
+        "${streams}/proxy.response.too.large.to.cache/connect/server",
+    })
+    public void shouldProxyResponseTooLargeToCache() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
 }

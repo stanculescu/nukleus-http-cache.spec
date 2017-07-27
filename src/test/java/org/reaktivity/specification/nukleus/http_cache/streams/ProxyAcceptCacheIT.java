@@ -236,7 +236,18 @@ public class ProxyAcceptCacheIT
         k3po.finish();
     }
 
-    // TODO cache that exceeds response max storage size
+    @Test
+    @Specification({
+        "${streams}/proxy.response.too.large.to.cache/accept/client",
+        "${streams}/proxy.response.too.large.to.cache/accept/server",
+    })
+    public void shouldProxyResponseTooLargeToCache() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
     // TODO no-cache does not use cache
     // TODO 304 on etags or last-modified
 }
