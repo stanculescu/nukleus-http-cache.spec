@@ -54,6 +54,18 @@ public class ProxyAcceptCacheIT
 
     @Test
     @Specification({
+        "${streams}/proxy.get.request.with.body/accept/client",
+        "${streams}/proxy.get.request.with.body/accept/server",
+        })
+    public void shouldProxyGetRequestWithBody() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
         "${streams}/proxy.post.request/accept/client",
         "${streams}/proxy.post.request/accept/server",
     })
