@@ -59,6 +59,8 @@ public class ProxyAcceptCacheIT
         })
     public void shouldProxyGetRequestWithBody() throws Exception
     {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
         k3po.finish();
     }
 

@@ -28,9 +28,9 @@ write nukleus:begin.ext ${http:header(":scheme", "http")}
                         ${http:header(":authority", "localhost:8080")}
                         ${http:header("content-length", "9")}
 
-write "say hello"
-
 connected
+
+write "say hello"
 
 write close
 
