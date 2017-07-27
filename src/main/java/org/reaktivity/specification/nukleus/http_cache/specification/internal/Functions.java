@@ -130,7 +130,7 @@ public final class Functions
 
     private static int randomCharBytesUTF8(byte[] bytes, int offset, int width)
     {
-        ThreadLocalRandom random = ThreadLocalRandom.current();
+        Random random = ThreadLocalRandom.current();
         switch (width)
         {
             case 1:
