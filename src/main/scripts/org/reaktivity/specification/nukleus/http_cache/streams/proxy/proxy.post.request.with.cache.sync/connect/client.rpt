@@ -37,4 +37,3 @@ write close
 read nukleus:begin.ext ${http:header(":status", "200")}
 
 read closed
-

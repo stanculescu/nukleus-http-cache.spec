@@ -39,4 +39,3 @@ write nukleus:begin.ext ${http:header(":status", "200")}
 
 write flush
 write close
-
