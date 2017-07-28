@@ -42,6 +42,18 @@ public class ProxyAcceptCacheSyncIT
 
     @Test
     @Specification({
+        "${streams}/proxy.post.request.with.cache.sync/accept/client",
+        "${streams}/proxy.post.request.with.cache.sync/accept/server",
+        })
+    public void shouldProxyPostRequestWithCacheSync() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
         "${streams}/cache.response.and.push.promise/accept/client",
         "${streams}/cache.response.and.push.promise/accept/server",
     })
