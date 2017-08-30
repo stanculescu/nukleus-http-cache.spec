@@ -114,6 +114,18 @@ public class ProxyConnectCacheIT
 
     @Test
     @Specification({
+            "${streams}/cache.max-age=0/accept/client",
+            "${streams}/cache.max-age=0/accept/server",
+    })
+    public void shouldHonorMaxAgeZero() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
         "${streams}/should.bypass.cache.on.no.cache/connect/client",
         "${streams}/should.bypass.cache.on.no.cache/connect/server",
     })
