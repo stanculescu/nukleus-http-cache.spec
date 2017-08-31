@@ -14,12 +14,12 @@
 # under the License.
 #
 
-property newProxyAcceptRef ${nukleus:newRouteRef()} # external scope
+property newProxyConnectRef ${nuklei:newReferenceId()} # external scope
 property date ${http_cache:date()} # shared property
 
 accept await ROUTED_PROXY
-        "nukleus://http-cache/streams/source"
-        option nukleus:route ${newProxyAcceptRef}
+        "nukleus://target/streams/http-cache"
+        option nukleus:route ${newProxyConnectRef}
         option nukleus:window 8192
         option nukleus:transmission "half-duplex"
 accepted
@@ -35,13 +35,13 @@ read closed
 
 write nukleus:begin.ext ${http:header(":status", "200")}
                         ${http:header("content-length", "11")}
-                        ${http:header("cache-control", "max-age=0")}
+                        ${http:header("cache-control", "max-age=15")}
                         ${http:header("date", date)}
                         ${http:header("last-modified", date)}
+
 write "hello world"
 
 write close
-
 
 accepted
 
@@ -56,7 +56,7 @@ read closed
 
 write nukleus:begin.ext ${http:header(":status", "200")}
                         ${http:header("content-length", "11")}
-                        ${http:header("cache-control", "max-age=0")}
+                        ${http:header("cache-control", "max-age=15")}
                         ${http:header("date", date)}
                         ${http:header("last-modified", date)}
 
