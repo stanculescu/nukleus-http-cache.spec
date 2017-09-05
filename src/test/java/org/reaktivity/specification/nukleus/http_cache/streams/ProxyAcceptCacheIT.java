@@ -126,6 +126,18 @@ public class ProxyAcceptCacheIT
 
     @Test
     @Specification({
+            "${streams}/request.cache.max-age=0.and.304/accept/client",
+            "${streams}/request.cache.max-age=0.and.304/accept/server",
+    })
+    public void shouldRequestCacheMaxAgeZeroAnd304() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
         "${streams}/should.bypass.cache.on.no.cache/accept/client",
         "${streams}/should.bypass.cache.on.no.cache/accept/server",
     })
