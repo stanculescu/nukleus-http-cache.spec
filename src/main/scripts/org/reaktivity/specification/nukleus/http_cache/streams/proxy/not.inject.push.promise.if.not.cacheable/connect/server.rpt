@@ -40,8 +40,6 @@ connected
 read closed
 
 write nukleus:begin.ext ${http:header(":status", "403")}
-                        ${http:header("content-length", "11")}
-
-write "hello world"
+                        ${http:header("content-length", "0")}
 
 write close

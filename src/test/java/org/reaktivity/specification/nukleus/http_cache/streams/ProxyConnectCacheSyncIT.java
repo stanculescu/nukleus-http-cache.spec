@@ -90,8 +90,8 @@ public class ProxyConnectCacheSyncIT
 
     @Test
     @Specification({
-        "${streams}/not.inject.push.promise.if.not.cacheable/accept/client",
-        "${streams}/not.inject.push.promise.if.not.cacheable/accept/server",
+        "${streams}/not.inject.push.promise.if.not.cacheable/connect/client",
+        "${streams}/not.inject.push.promise.if.not.cacheable/connect/server",
     })
     public void shouldNotInjectPushPromiseIfNotCacheable() throws Exception
     {
