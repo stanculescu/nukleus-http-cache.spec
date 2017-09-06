@@ -90,6 +90,18 @@ public class ProxyConnectCacheSyncIT
 
     @Test
     @Specification({
+        "${streams}/not.inject.push.promise.if.not.cacheable/connect/client",
+        "${streams}/not.inject.push.promise.if.not.cacheable/connect/server",
+    })
+    public void shouldNotInjectPushPromiseIfNotCacheable() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
         "${streams}/inject.header.values/connect/client",
         "${streams}/inject.header.values/connect/server",
     })
