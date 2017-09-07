@@ -16,6 +16,7 @@
 
 property newProxyConnectRef ${nuklei:newReferenceId()} # external scope
 property date ${http_cache:date()} # shared property
+property etag ${http_cache:strongEtag()}
 
 connect await ROUTED_PROXY
         "nukleus://target/streams/http-cache"
