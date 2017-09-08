@@ -35,11 +35,11 @@ connected
 write close
 
 read nukleus:begin.ext ${http:header(":status", "200")}
-                       ${http:header("content-length", "11")}
+                       ${http:header("content-length", "18")}
                        ${http:header("date", date)}
                        ${http:header("last-modified", date)}
 
-read "hello world"
+read "response content 1"
 
 read closed
 
@@ -60,10 +60,10 @@ connected
 write close
 
 read nukleus:begin.ext ${http:header(":status", "200")}
-                       ${http:header("content-length", "11")}
+                       ${http:header("content-length", "18")}
                        ${http:header("cache-control", "max-age=15")}
                        ${http:header("date", date)}
                        ${http:header("last-modified", date)}
-read "hello world"
+read "response content 2"
 
 read closed

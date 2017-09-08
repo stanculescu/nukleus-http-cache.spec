@@ -138,8 +138,8 @@ public class ProxyConnectCacheIT
 
     @Test
     @Specification({
-            "${streams}/cache.get.request.with.no-store/accept/client",
-            "${streams}/cache.get.request.with.no-store/accept/server",
+            "${streams}/cache.get.request.with.no-store/connect/client",
+            "${streams}/cache.get.request.with.no-store/connect/server",
     })
     public void shouldCacheGetRequestWithNoStore() throws Exception
     {
