@@ -138,6 +138,18 @@ public class ProxyAcceptCacheIT
 
     @Test
     @Specification({
+            "${streams}/cache.get.request.with.no-store.and.response.marked.cacheable/accept/client",
+            "${streams}/cache.get.request.with.no-store.and.response.marked.cacheable/accept/server",
+    })
+    public void shouldCacheGetRequestWithNoStoreAndResponeMarkedCacheable() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
         "${streams}/cache.s-maxage/accept/client",
         "${streams}/cache.s-maxage/accept/server",
     })
