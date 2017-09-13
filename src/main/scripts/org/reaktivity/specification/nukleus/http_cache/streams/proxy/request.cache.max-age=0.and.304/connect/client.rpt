@@ -39,7 +39,7 @@ read nukleus:begin.ext ${http:header(":status", "200")}
                        ${http:header("content-length", "11")}
                        ${http:header("cache-control", "max-age=15")}
                        ${http:header("date", date)}
-                       ${http:header("last-modified", date)}
+                       ${http:header("etag", etag)}
 read "hello world"
 
 read closed
@@ -55,7 +55,7 @@ write nukleus:begin.ext ${http:header(":scheme", "http")}
                         ${http:header(":path", "/path")}
                         ${http:header(":authority", "localhost:8080")}
                         ${http:header("cache-control", "max-age=0")}
-                        ${http:header("etag", etag)}
+                        ${http:header("if-none-match", etag)}
 
 
 connected
