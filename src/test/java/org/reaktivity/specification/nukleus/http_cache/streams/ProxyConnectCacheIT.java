@@ -162,6 +162,30 @@ public class ProxyConnectCacheIT
 
     @Test
     @Specification({
+            "${streams}/cache.get.request.with.no-store/connect/client",
+            "${streams}/cache.get.request.with.no-store/connect/server",
+    })
+    public void shouldCacheGetRequestWithNoStore() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+            "${streams}/cache.get.request.with.no-store.and.response.marked.cacheable/connect/client",
+            "${streams}/cache.get.request.with.no-store.and.response.marked.cacheable/connect/server",
+    })
+    public void shouldCacheGetRequestWithNoStoreAndResponeMarkedCacheable() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
         "${streams}/expire.s-maxage/connect/client",
         "${streams}/expire.s-maxage/connect/server",
     })
