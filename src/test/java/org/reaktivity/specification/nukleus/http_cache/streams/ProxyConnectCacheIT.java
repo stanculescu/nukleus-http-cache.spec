@@ -114,6 +114,30 @@ public class ProxyConnectCacheIT
 
     @Test
     @Specification({
+            "${streams}/request.cache.max-age=0/accept/client",
+            "${streams}/request.cache.max-age=0/accept/server",
+    })
+    public void shouldRequestCacheMaxAgeZero() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+            "${streams}/request.cache.max-age=0.and.304/accept/client",
+            "${streams}/request.cache.max-age=0.and.304/accept/server",
+    })
+    public void shouldRequestCacheMaxAgeZeroAnd304() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
         "${streams}/should.bypass.cache.on.no.cache/connect/client",
         "${streams}/should.bypass.cache.on.no.cache/connect/server",
     })
@@ -130,6 +154,30 @@ public class ProxyConnectCacheIT
         "${streams}/cache.s-maxage/connect/server",
     })
     public void shouldCacheSMaxage() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+            "${streams}/cache.get.request.with.no-store/connect/client",
+            "${streams}/cache.get.request.with.no-store/connect/server",
+    })
+    public void shouldCacheGetRequestWithNoStore() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+            "${streams}/cache.get.request.with.no-store.and.response.marked.cacheable/connect/client",
+            "${streams}/cache.get.request.with.no-store.and.response.marked.cacheable/connect/server",
+    })
+    public void shouldCacheGetRequestWithNoStoreAndResponeMarkedCacheable() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_PROXY");
