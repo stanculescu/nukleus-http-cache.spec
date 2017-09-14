@@ -114,6 +114,30 @@ public class ProxyAcceptCacheIT
 
     @Test
     @Specification({
+            "${streams}/cache.max-stale/accept/client",
+            "${streams}/cache.max-stale/accept/server",
+    })
+    public void shouldCacheMaxStale() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+            "${streams}/expire.max-stale/accept/client",
+            "${streams}/expire.max-stale/accept/server",
+    })
+    public void shouldExpireMaxStale() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
             "${streams}/request.cache.max-age=0/accept/client",
             "${streams}/request.cache.max-age=0/accept/server",
     })

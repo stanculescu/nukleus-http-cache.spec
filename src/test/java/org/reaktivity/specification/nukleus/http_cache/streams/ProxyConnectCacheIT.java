@@ -114,6 +114,30 @@ public class ProxyConnectCacheIT
 
     @Test
     @Specification({
+            "${streams}/cache.max-stale/connect/client",
+            "${streams}/cache.max-stale/connect/server",
+    })
+    public void shouldCacheMaxStale() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+            "${streams}/expire.max-stale/connect/client",
+            "${streams}/expire.max-stale/connect/server",
+    })
+    public void shouldExpireMaxStale() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
             "${streams}/request.cache.max-age=0/accept/client",
             "${streams}/request.cache.max-age=0/accept/server",
     })
