@@ -87,7 +87,7 @@ public class ProxyConnectCacheIT
         k3po.notifyBarrier("ROUTED_PROXY");
         k3po.finish();
     }
-    
+
     @Test
     @Specification({
             "${streams}/expire.min-fresh/connect/client",
