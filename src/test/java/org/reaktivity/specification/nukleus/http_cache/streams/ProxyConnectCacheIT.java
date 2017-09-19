@@ -87,6 +87,30 @@ public class ProxyConnectCacheIT
         k3po.notifyBarrier("ROUTED_PROXY");
         k3po.finish();
     }
+    
+    @Test
+    @Specification({
+            "${streams}/expire.min-fresh/connect/client",
+            "${streams}/expire.min-fresh/connect/server",
+    })
+    public void shouldExpireMinFresh() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+            "${streams}/expire.min-fresh.with.max-age/connect/client",
+            "${streams}/expire.min-fresh.with.max-age/connect/server",
+    })
+    public void shouldExpireMinFreshWithMaxAge() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
 
     @Test
     @Specification({
