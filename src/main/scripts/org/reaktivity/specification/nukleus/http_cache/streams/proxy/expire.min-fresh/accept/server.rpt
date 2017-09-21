@@ -43,7 +43,6 @@ write "hello world"
 
 write close
 
-write notify CACHE_EXPIRED # assumed
 
 accepted
 
@@ -51,7 +50,7 @@ read nukleus:begin.ext ${http:header(":scheme", "http")}
                        ${http:header(":method", "GET")}
                        ${http:header(":path", "/path")}
                        ${http:header(":authority", "localhost:8080")}
-                       ${http:header("cache-control", "min-fresh=5")}
+                       ${http:header("cache-control", "min-fresh=6")}
 
 connected
 

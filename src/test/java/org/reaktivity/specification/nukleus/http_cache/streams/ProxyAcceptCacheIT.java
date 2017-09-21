@@ -102,10 +102,10 @@ public class ProxyAcceptCacheIT
 
     @Test
     @Specification({
-            "${streams}/cache.min-fresh.with.max-age/accept/client",
-            "${streams}/cache.min-fresh.with.max-age/accept/server",
+            "${streams}/cache.min-fresh/accept/client",
+            "${streams}/cache.min-fresh/accept/server",
     })
-    public void shouldCacheeMinFreshWithMaxAge() throws Exception
+    public void shouldCacheMinFresh() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_PROXY");
@@ -118,18 +118,6 @@ public class ProxyAcceptCacheIT
             "${streams}/expire.min-fresh/accept/server",
     })
     public void shouldExpireMinFresh() throws Exception
-    {
-        k3po.start();
-        k3po.notifyBarrier("ROUTED_PROXY");
-        k3po.finish();
-    }
-
-    @Test
-    @Specification({
-            "${streams}/expire.min-fresh.with.max-age/accept/client",
-            "${streams}/expire.min-fresh.with.max-age/accept/server",
-    })
-    public void shouldExpireMinFreshWithMaxAge() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_PROXY");
