@@ -43,7 +43,7 @@ write "hello world"
 
 write close
 
-write notify CACHE_EXPIRED # assumed
+write notify CACHE_EXPIRED_AND_STALE_FOR_2_SECONDS # assumed
 
 accepted
 

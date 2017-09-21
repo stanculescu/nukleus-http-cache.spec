@@ -46,7 +46,7 @@ read notify REQUEST_CACHED
 
 
 # INPUT STREAM 2
-connect await CACHE_EXPIRED
+connect await CACHE_EXPIRED_AND_STALE_FOR_2_SECONDS
         "nukleus://http-cache/streams/source"
         option nukleus:route ${newProxyAcceptRef}
         option nukleus:window 8192
