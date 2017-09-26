@@ -150,6 +150,42 @@ public class ProxyAcceptCacheIT
 
     @Test
     @Specification({
+            "${streams}/request.only-if-cached/accept/client",
+            "${streams}/request.only-if-cached/accept/server",
+    })
+    public void shouldRequestOnlyIfCached() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+            "${streams}/request.only-if-cached.and.504/accept/client",
+            "${streams}/request.only-if-cached.and.504/accept/server",
+    })
+    public void shouldRequestOnlyIfCachedAnd504() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+            "${streams}/request.expire.only-if-cached/accept/client",
+            "${streams}/request.expire.only-if-cached/accept/server",
+    })
+    public void shouldRequestExpireOnlyIfCached() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
         "${streams}/should.bypass.cache.on.no.cache/accept/client",
         "${streams}/should.bypass.cache.on.no.cache/accept/server",
     })

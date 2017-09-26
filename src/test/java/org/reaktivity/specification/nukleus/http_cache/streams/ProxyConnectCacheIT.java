@@ -150,6 +150,30 @@ public class ProxyConnectCacheIT
 
     @Test
     @Specification({
+            "${streams}/request.only-if-cached/connect/client",
+            "${streams}/request.only-if-cached/connect/server",
+    })
+    public void shouldRequestOnlyIfCached() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+            "${streams}/request.expire.only-if-cached/connect/client",
+            "${streams}/request.expire.only-if-cached/connect/server",
+    })
+    public void shouldRequestExpireOnlyIfCached() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
         "${streams}/should.bypass.cache.on.no.cache/connect/client",
         "${streams}/should.bypass.cache.on.no.cache/connect/server",
     })
