@@ -150,6 +150,54 @@ public class ProxyAcceptCacheIT
 
     @Test
     @Specification({
+            "${streams}/cache.max-stale.with.value/accept/client",
+            "${streams}/cache.max-stale.with.value/accept/server",
+    })
+    public void shouldCacheMaxStaleWithValue() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+            "${streams}/cache.max-stale.no.value/accept/client",
+            "${streams}/cache.max-stale.no.value/accept/server",
+    })
+    public void shouldCacheMaxStaleWithNoValue() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+            "${streams}/cache.max-stale.with.max-age/accept/client",
+            "${streams}/cache.max-stale.with.max-age/accept/server",
+    })
+    public void shouldCacheMaxStaleWithMaxAge() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+            "${streams}/expire.max-stale/accept/client",
+            "${streams}/expire.max-stale/accept/server",
+    })
+    public void shouldExpireMaxStale() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
             "${streams}/request.cache.max-age=0/accept/client",
             "${streams}/request.cache.max-age=0/accept/server",
     })
