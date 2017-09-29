@@ -114,6 +114,30 @@ public class ProxyAcceptCacheIT
 
     @Test
     @Specification({
+            "${streams}/cache.min-fresh/accept/client",
+            "${streams}/cache.min-fresh/accept/server",
+    })
+    public void shouldCacheMinFresh() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+            "${streams}/expire.min-fresh/accept/client",
+            "${streams}/expire.min-fresh/accept/server",
+    })
+    public void shouldExpireMinFresh() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
         "${streams}/expire.max-age/accept/client",
         "${streams}/expire.max-age/accept/server",
     })

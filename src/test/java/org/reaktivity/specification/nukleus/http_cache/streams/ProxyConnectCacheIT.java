@@ -102,6 +102,30 @@ public class ProxyConnectCacheIT
 
     @Test
     @Specification({
+            "${streams}/cache.min-fresh/connect/client",
+            "${streams}/cache.min-fresh/connect/server",
+    })
+    public void shouldCacheMinFresh() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+            "${streams}/expire.min-fresh/connect/client",
+            "${streams}/expire.min-fresh/connect/server",
+    })
+    public void shouldExpireMinFresh() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
         "${streams}/cache.max-age/connect/client",
         "${streams}/cache.max-age/connect/server",
     })
