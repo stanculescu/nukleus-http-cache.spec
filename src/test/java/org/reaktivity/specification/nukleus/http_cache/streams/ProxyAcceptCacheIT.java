@@ -66,6 +66,18 @@ public class ProxyAcceptCacheIT
 
     @Test
     @Specification({
+        "${streams}/proxy.get.request.with.transfer.encoding/accept/client",
+        "${streams}/proxy.get.request.with.transfer.encoding/accept/server",
+    })
+    public void shouldProxyGetRequestWithTransferEncoding() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
         "${streams}/proxy.post.request/accept/client",
         "${streams}/proxy.post.request/accept/server",
     })
@@ -102,10 +114,82 @@ public class ProxyAcceptCacheIT
 
     @Test
     @Specification({
+            "${streams}/cache.min-fresh/accept/client",
+            "${streams}/cache.min-fresh/accept/server",
+    })
+    public void shouldCacheMinFresh() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+            "${streams}/expire.min-fresh/accept/client",
+            "${streams}/expire.min-fresh/accept/server",
+    })
+    public void shouldExpireMinFresh() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
         "${streams}/expire.max-age/accept/client",
         "${streams}/expire.max-age/accept/server",
     })
     public void shouldExpireMaxAge() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+            "${streams}/cache.max-stale.with.value/accept/client",
+            "${streams}/cache.max-stale.with.value/accept/server",
+    })
+    public void shouldCacheMaxStaleWithValue() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+            "${streams}/cache.max-stale.no.value/accept/client",
+            "${streams}/cache.max-stale.no.value/accept/server",
+    })
+    public void shouldCacheMaxStaleWithNoValue() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+            "${streams}/cache.max-stale.with.max-age/accept/client",
+            "${streams}/cache.max-stale.with.max-age/accept/server",
+    })
+    public void shouldCacheMaxStaleWithMaxAge() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+            "${streams}/expire.max-stale/accept/client",
+            "${streams}/expire.max-stale/accept/server",
+    })
+    public void shouldExpireMaxStale() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_PROXY");
@@ -130,6 +214,42 @@ public class ProxyAcceptCacheIT
             "${streams}/request.cache.max-age=0.and.304/accept/server",
     })
     public void shouldRequestCacheMaxAgeZeroAnd304() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+            "${streams}/request.only-if-cached/accept/client",
+            "${streams}/request.only-if-cached/accept/server",
+    })
+    public void shouldRequestOnlyIfCached() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+            "${streams}/request.only-if-cached.and.504/accept/client",
+            "${streams}/request.only-if-cached.and.504/accept/server",
+    })
+    public void shouldRequestOnlyIfCachedAnd504() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+            "${streams}/request.expire.only-if-cached/accept/client",
+            "${streams}/request.expire.only-if-cached/accept/server",
+    })
+    public void shouldRequestExpireOnlyIfCached() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_PROXY");

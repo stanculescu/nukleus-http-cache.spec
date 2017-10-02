@@ -54,6 +54,18 @@ public class ProxyAcceptExceptionsIT
 
     @Test
     @Specification({
+        "${streams}/accept.sent.abort.cacheable.request/accept/client",
+        "${streams}/accept.sent.abort.cacheable.request/accept/server",
+    })
+    public void shouldHandleAbortSentOnCacheableRequest() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
         "${streams}/connect.reply.sent.abort/accept/client",
         "${streams}/connect.reply.sent.abort/accept/server",
     })

@@ -66,6 +66,18 @@ public class ProxyConnectCacheIT
 
     @Test
     @Specification({
+        "${streams}/proxy.get.request.with.transfer.encoding/connect/client",
+        "${streams}/proxy.get.request.with.transfer.encoding/connect/server",
+    })
+    public void shouldProxyGetRequestWithTransferEncoding() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
         "${streams}/proxy.post.request/connect/client",
         "${streams}/proxy.post.request/connect/server",
     })
@@ -82,6 +94,30 @@ public class ProxyConnectCacheIT
         "${streams}/proxy.request.and.304/connect/server",
     })
     public void shouldProxyRequestWith304() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+            "${streams}/cache.min-fresh/connect/client",
+            "${streams}/cache.min-fresh/connect/server",
+    })
+    public void shouldCacheMinFresh() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+            "${streams}/expire.min-fresh/connect/client",
+            "${streams}/expire.min-fresh/connect/server",
+    })
+    public void shouldExpireMinFresh() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_PROXY");
@@ -114,6 +150,54 @@ public class ProxyConnectCacheIT
 
     @Test
     @Specification({
+            "${streams}/cache.max-stale.with.value/connect/client",
+            "${streams}/cache.max-stale.with.value/connect/server",
+    })
+    public void shouldCacheMaxStaleWithValue() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+            "${streams}/cache.max-stale.no.value/connect/client",
+            "${streams}/cache.max-stale.no.value/connect/server",
+    })
+    public void shouldCacheMaxStaleWithNoValue() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+            "${streams}/cache.max-stale.with.max-age/connect/client",
+            "${streams}/cache.max-stale.with.max-age/connect/server",
+    })
+    public void shouldCacheMaxStaleWithMaxAge() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+            "${streams}/expire.max-stale/connect/client",
+            "${streams}/expire.max-stale/connect/server",
+    })
+    public void shouldExpireMaxStale() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
             "${streams}/request.cache.max-age=0/accept/client",
             "${streams}/request.cache.max-age=0/accept/server",
     })
@@ -130,6 +214,30 @@ public class ProxyConnectCacheIT
             "${streams}/request.cache.max-age=0.and.304/accept/server",
     })
     public void shouldRequestCacheMaxAgeZeroAnd304() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+            "${streams}/request.only-if-cached/connect/client",
+            "${streams}/request.only-if-cached/connect/server",
+    })
+    public void shouldRequestOnlyIfCached() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+            "${streams}/request.expire.only-if-cached/connect/client",
+            "${streams}/request.expire.only-if-cached/connect/server",
+    })
+    public void shouldRequestExpireOnlyIfCached() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_PROXY");
