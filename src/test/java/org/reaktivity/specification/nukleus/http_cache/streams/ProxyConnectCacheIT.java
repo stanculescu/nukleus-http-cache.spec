@@ -311,22 +311,10 @@ public class ProxyConnectCacheIT
 
     @Test
     @Specification({
-        "${streams}/cache.by.default.for.5.seconds/connect/client",
-        "${streams}/cache.by.default.for.5.seconds/connect/server",
+        "${streams}/expire.cache.by.default.for.0.seconds/connect/client",
+        "${streams}/expire.cache.by.default.for.0.seconds/connect/server",
     })
-    public void shouldCacheDefaultCacheableFor5Seconds() throws Exception
-    {
-        k3po.start();
-        k3po.notifyBarrier("ROUTED_PROXY");
-        k3po.finish();
-    }
-
-    @Test
-    @Specification({
-        "${streams}/expire.cache.by.default.for.5.seconds/connect/client",
-        "${streams}/expire.cache.by.default.for.5.seconds/connect/server",
-    })
-    public void shouldExpireCacheDefaultCacheableFor5Seconds() throws Exception
+    public void shouldExpireCacheByDefaultFor0Seconds() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_PROXY");
