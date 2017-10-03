@@ -16,7 +16,6 @@
 
 property newProxyAcceptRef ${nukleus:newRouteRef()} # external scope
 property date ${http_cache:date()} # shared property
-property date2 ${http_cache:datePlus(2)} # shared property
 
 connect await ROUTED_PROXY
         "nukleus://http-cache/streams/source"
@@ -36,7 +35,7 @@ connected
 write close
 read nukleus:begin.ext ${http:header(":status", "200")}
                        ${http:header("content-length", "11")}
-                       ${http:header("cache-control", "max-age=15")}
+                       ${http:header("cache-control", "max-age=5")}
                        ${http:header("date", date)}
                        ${http:header("last-modified", date)}
 
@@ -47,7 +46,7 @@ read notify REQUEST_CACHED
 
 
 # INPUT STREAM 2
-connect await CACHE_EXPIRED
+connect await REQUEST_CACHED
         "nukleus://http-cache/streams/source"
         option nukleus:route ${newProxyAcceptRef}
         option nukleus:window 8192
@@ -69,6 +68,6 @@ read nukleus:begin.ext ${http:header(":status", "200")}
                        ${http:header("date", date)}
                        ${http:header("last-modified", date)}
 
-read "hello alien"
+read "hello world"
 
 read closed
