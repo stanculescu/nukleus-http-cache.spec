@@ -6,7 +6,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.reaktivity</groupId>
   <artifactId>nukleus-http-cache.spec</artifactId>
-  <version>0.17</version>
+  <version>0.18</version>
   <name>HTTP Cache Nukleus Specification</name>
   <description>HTTP Cache Nukleus Specification</description>
   <url>https://github.com/reaktivity/nukleus-http-cache.spec</url>
@@ -42,13 +42,15 @@
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <checkstyle.config.location>src/conf/checkstyle/configuration.xml</checkstyle.config.location>
     <checkstyle.suppressions.location>src/conf/checkstyle/suppressions.xml</checkstyle.suppressions.location>
+    <jacoco.coverage.ratio>0</jacoco.coverage.ratio>
+    <jacoco.missed.count>3</jacoco.missed.count>
 
     <junit.version>4.12</junit.version>
 
-    <k3po.version>3.0.0-alpha-79</k3po.version>
-    <k3po.nukleus.ext.version>0.8.1</k3po.nukleus.ext.version>
+    <k3po.version>3.0.0-alpha-81</k3po.version>
+    <k3po.nukleus.ext.version>0.9</k3po.nukleus.ext.version>
 
-    <nukleus-http2.spec.version>0.24</nukleus-http2.spec.version>
+    <nukleus-http2.spec.version>0.27</nukleus-http2.spec.version>
     <nukleus.plugin.version>0.12</nukleus.plugin.version>
   </properties>
 
@@ -85,39 +87,6 @@
       </resource>
     </resources>
     <plugins>
-      <plugin>
-        <groupId>org.kaazing</groupId>
-        <artifactId>k3po-maven-plugin</artifactId>
-        <version>${k3po.version}</version>
-        <executions>
-          <execution>
-            <goals>
-              <goal>start</goal>
-              <goal>stop</goal>
-            </goals>
-          </execution>
-        </executions>
-        <dependencies>
-          <dependency>
-            <groupId>org.reaktivity</groupId>
-            <artifactId>k3po-nukleus-ext</artifactId>
-            <version>${k3po.nukleus.ext.version}</version>
-          </dependency>
-        </dependencies>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-failsafe-plugin</artifactId>
-        <version>2.19.1</version>
-        <executions>
-          <execution>
-            <goals>
-              <goal>integration-test</goal>
-              <goal>verify</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
       <plugin>
         <groupId>com.mycila</groupId>
         <artifactId>license-maven-plugin</artifactId>
@@ -158,6 +127,82 @@
             <phase>validate</phase>
             <goals>
               <goal>check</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+        <version>0.7.9</version>
+        <configuration>
+          <rules>
+            <rule>
+              <element>BUNDLE</element>
+              <limits>
+                <limit>
+                  <counter>INSTRUCTION</counter>
+                  <value>COVEREDRATIO</value>
+                  <minimum>${jacoco.coverage.ratio}</minimum>
+                </limit>
+                <limit>
+                  <counter>CLASS</counter>
+                  <value>MISSEDCOUNT</value>
+                  <maximum>${jacoco.missed.count}</maximum>
+                </limit>
+              </limits>
+            </rule>
+          </rules>
+        </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>prepare-agent</goal>
+              <goal>check</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>2.17</version>
+        <configuration>
+          <argLine>@{argLine}</argLine>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.kaazing</groupId>
+        <artifactId>k3po-maven-plugin</artifactId>
+        <version>${k3po.version}</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>start</goal>
+              <goal>stop</goal>
+            </goals>
+          </execution>
+        </executions>
+        <dependencies>
+          <dependency>
+            <groupId>org.reaktivity</groupId>
+            <artifactId>k3po-nukleus-ext</artifactId>
+            <version>${k3po.nukleus.ext.version}</version>
+          </dependency>
+        </dependencies>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-failsafe-plugin</artifactId>
+        <version>2.19.1</version>
+        <configuration>
+          <argLine>@{argLine}</argLine>
+        </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>integration-test</goal>
+              <goal>verify</goal>
             </goals>
           </execution>
         </executions>
