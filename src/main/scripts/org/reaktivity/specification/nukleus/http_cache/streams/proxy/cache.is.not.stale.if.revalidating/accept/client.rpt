@@ -96,6 +96,7 @@ write close
 read nukleus:begin.ext ${http:header(":status", "200")}
                        ${http:header("content-length", "11")}
                        ${http:header("date", date)}
+                       ${http:header("warning", "110 - \"Response is Stale\"")}
                        ${http:header("cache-control", "stale-while-revalidate=2147483648")}
 
 read nukleus:data.ext ${http:header(":scheme", "http")}
