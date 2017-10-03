@@ -346,22 +346,10 @@ public class ProxyAcceptCacheIT
 
     @Test
     @Specification({
-        "${streams}/cache.by.default.for.5.seconds/accept/client",
-        "${streams}/cache.by.default.for.5.seconds/accept/server",
+        "${streams}/expire.cache.by.default.for.0.seconds/accept/client",
+        "${streams}/expire.cache.by.default.for.0.seconds/accept/server",
     })
-    public void shouldCacheDefaultCacheableFor5Seconds() throws Exception
-    {
-        k3po.start();
-        k3po.notifyBarrier("ROUTED_PROXY");
-        k3po.finish();
-    }
-
-    @Test
-    @Specification({
-        "${streams}/expire.cache.by.default.for.5.seconds/accept/client",
-        "${streams}/expire.cache.by.default.for.5.seconds/accept/server",
-    })
-    public void shouldExpireCacheDefaultCacheableFor5Seconds() throws Exception
+    public void shouldExpireCacheByDefaultFor0Seconds() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_PROXY");
