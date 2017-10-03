@@ -114,6 +114,30 @@ public class ProxyAcceptCacheIT
 
     @Test
     @Specification({
+            "${streams}/request.greater.max-age/accept/client",
+            "${streams}/request.greater.max-age/accept/server",
+    })
+    public void shouldNotCacheWhenResponseAgeIsGreaterThanMaxAge() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+            "${streams}/request.lesser.max-age/accept/client",
+            "${streams}/request.lesser.max-age/accept/server",
+    })
+    public void shouldCacheRequestMaxAge() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
             "${streams}/cache.min-fresh/accept/client",
             "${streams}/cache.min-fresh/accept/server",
     })
