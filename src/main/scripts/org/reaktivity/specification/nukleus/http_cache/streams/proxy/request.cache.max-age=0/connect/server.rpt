@@ -63,6 +63,6 @@ write nukleus:begin.ext ${http:header(":status", "200")}
                         ${http:header("date", date2)}
                         ${http:header("last-modified", date2)}
 
-write "hello world"
+write "hello alien"
 
 write close

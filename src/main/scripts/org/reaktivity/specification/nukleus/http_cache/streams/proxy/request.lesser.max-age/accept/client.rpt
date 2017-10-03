@@ -35,7 +35,7 @@ connected
 write close
 read nukleus:begin.ext ${http:header(":status", "200")}
                        ${http:header("content-length", "11")}
-                       ${http:header("cache-control", "max-age=5")}
+                       ${http:header("cache-control", "max-age=15")}
                        ${http:header("date", date)}
                        ${http:header("last-modified", date)}
 
@@ -46,7 +46,7 @@ read notify REQUEST_CACHED
 
 
 # INPUT STREAM 2
-connect await CACHE_WAITS
+connect await CACHE_WAITS_1_SEC
         "nukleus://http-cache/streams/source"
         option nukleus:route ${newProxyAcceptRef}
         option nukleus:window 8192
@@ -56,7 +56,7 @@ write nukleus:begin.ext ${http:header(":scheme", "http")}
                         ${http:header(":method", "GET")}
                         ${http:header(":path", "/path")}
                         ${http:header(":authority", "localhost:8080")}
-                        ${http:header("cache-control", "max-age=3")}
+                        ${http:header("cache-control", "max-age=10")}
 
 connected
 
@@ -64,7 +64,7 @@ write close
 
 read nukleus:begin.ext ${http:header(":status", "200")}
                        ${http:header("content-length", "11")}
-                       ${http:header("cache-control", "max-age=5")}
+                       ${http:header("cache-control", "max-age=15")}
                        ${http:header("date", date)}
                        ${http:header("last-modified", date)}
 

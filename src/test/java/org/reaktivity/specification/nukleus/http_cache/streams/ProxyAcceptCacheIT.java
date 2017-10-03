@@ -145,6 +145,9 @@ public class ProxyAcceptCacheIT
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.awaitBarrier("REQUEST_CACHED");
+//      sleep(1000);
+        k3po.notifyBarrier("CACHE_WAIT_1_SEC");
         k3po.finish();
     }
 
