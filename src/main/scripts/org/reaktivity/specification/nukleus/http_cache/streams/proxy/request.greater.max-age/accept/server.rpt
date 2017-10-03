@@ -43,6 +43,8 @@ write "hello world"
 
 write close
 
+write notify WAIT_2_SECONDS
+
 accepted
 
 read nukleus:begin.ext ${http:header(":scheme", "http")}
