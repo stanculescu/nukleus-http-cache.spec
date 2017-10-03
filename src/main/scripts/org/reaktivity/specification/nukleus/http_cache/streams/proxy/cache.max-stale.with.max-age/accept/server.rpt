@@ -35,7 +35,7 @@ read closed
 
 write nukleus:begin.ext ${http:header(":status", "200")}
                         ${http:header("content-length", "11")}
-                        ${http:header("cache-control", "max-age=15")}
+                        ${http:header("cache-control", "max-age=1")}
                         ${http:header("date", date)}
                         ${http:header("last-modified", date)}
 write "hello world"
@@ -50,7 +50,7 @@ read nukleus:begin.ext ${http:header(":scheme", "http")}
                        ${http:header(":method", "GET")}
                        ${http:header(":path", "/path")}
                        ${http:header(":authority", "localhost:8080")}
-                       ${http:header("cache-control", "max-age=1, max-stale=5")}
+                       ${http:header("cache-control", "max-age=15, max-stale=5")}
 
 connected
 
@@ -58,7 +58,7 @@ read closed
 
 write nukleus:begin.ext ${http:header(":status", "200")}
                         ${http:header("content-length", "11")}
-                        ${http:header("cache-control", "max-age=15")}
+                        ${http:header("cache-control", "max-age=1")}
                         ${http:header("date", date)}
                         ${http:header("last-modified", date)}
                         ${http:header("warning", "110 - \"Response is Stale\"")}
