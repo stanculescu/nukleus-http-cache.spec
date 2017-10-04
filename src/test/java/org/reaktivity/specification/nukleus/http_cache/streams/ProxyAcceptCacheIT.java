@@ -249,6 +249,18 @@ public class ProxyAcceptCacheIT
 
     @Test
     @Specification({
+            "${streams}/request.no-cache/accept/client",
+            "${streams}/request.no-cache/accept/server",
+    })
+    public void shouldRequestNoCache() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
             "${streams}/request.only-if-cached/accept/client",
             "${streams}/request.only-if-cached/accept/server",
     })

@@ -198,8 +198,8 @@ public class ProxyConnectCacheIT
 
     @Test
     @Specification({
-            "${streams}/request.cache.max-age=0/accept/client",
-            "${streams}/request.cache.max-age=0/accept/server",
+            "${streams}/request.cache.max-age=0/connect/client",
+            "${streams}/request.cache.max-age=0/connect/server",
     })
     public void shouldRequestCacheMaxAgeZero() throws Exception
     {
@@ -210,10 +210,22 @@ public class ProxyConnectCacheIT
 
     @Test
     @Specification({
-            "${streams}/request.cache.max-age=0.and.304/accept/client",
-            "${streams}/request.cache.max-age=0.and.304/accept/server",
+            "${streams}/request.cache.max-age=0.and.304/connect/client",
+            "${streams}/request.cache.max-age=0.and.304/connect/server",
     })
     public void shouldRequestCacheMaxAgeZeroAnd304() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+            "${streams}/request.no-cache/connect/client",
+            "${streams}/request.no-cache/connect/server",
+    })
+    public void shouldRequestNoCache() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_PROXY");
