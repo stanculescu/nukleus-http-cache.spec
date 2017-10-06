@@ -21,7 +21,7 @@ property nukleiUR020101C ${nuklei:directory("target/nukleus-itests").controlCapa
 
 property controlUR020101C ${nukleiUR020101C.control("http-cache")}
 
-property routeAuthorization [0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00] # external
+property routeAuthorization 0x0000_000000000000L # external
 
 connect await ROUTED_PROXY
         "agrona://stream/bidirectional"

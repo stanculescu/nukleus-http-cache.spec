@@ -25,12 +25,12 @@ connect "agrona://stream/bidirectional"
 connected
 
 read 0x00000001
-read ([0..8]:correlationIdRG010101N)
+read (long:correlationIdRG010101N)
 read [0x02]
 read [0x06] "source"
 read 0L
 read [0x06] "target"
-read ([0..8]:proxyConnectRefRG010101N)
+read (long:proxyConnectRefRG010101N)
 read [0..8] # authorization
 
 write 0x40000001
