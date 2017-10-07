@@ -20,6 +20,8 @@ property nukleiRG010001C ${nuklei:directory("target/nukleus-itests").controlCapa
 
 property controlRG010001C ${nukleiRG010001C.control("http-cache")}
 
+property routeAuthorization 0x0000_000000000000L # external
+
 property routeTarget "target"
 
 connect "agrona://stream/bidirectional"
@@ -35,11 +37,12 @@ write [0x06] "source"
 write 0L
 write [0x06] ${routeTarget} 
 write ${newServerConnectRef}
+write ${routeAuthorization}
 write flush
 
 read 0x40000001
 read ${controlRG010001C.correlationId()}
-read ([0..8]:newServerAcceptRef)
+read (long:newServerAcceptRef)
 
 read notify ROUTED_SERVER
 
