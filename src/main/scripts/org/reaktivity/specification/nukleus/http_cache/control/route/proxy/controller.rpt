@@ -20,6 +20,8 @@ property nukleiRG010101C ${nuklei:directory("target/nukleus-itests").controlCapa
 
 property controlRG010101C ${nukleiRG010101C.control("http-cache")}
 
+property routeAuthorization 0x0000_000000000000L # external
+
 connect "agrona://stream/bidirectional"
         option agrona:reader ${agrona:broadcastReceiver(controlRG010101C.controller)}
         option agrona:writer ${agrona:manyToOneWriter(controlRG010101C.nukleus)}
@@ -33,11 +35,12 @@ write [0x06] "source"
 write 0L
 write [0x06] "target"
 write ${newProxyConnectRef}
+write ${routeAuthorization}
 write flush
 
 read 0x40000001
 read ${controlRG010101C.correlationId()}
-read ([0..8]:newProxyAcceptRef)
+read (long:newProxyAcceptRef)
 
 read notify ROUTED_PROXY
 
