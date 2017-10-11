@@ -150,6 +150,150 @@ public class ProxyConnectCacheIT
 
     @Test
     @Specification({
+            "${streams}/invalidate.cache/unsafe/post.ok/connect/client",
+            "${streams}/invalidate.cache/unsafe/post.ok/connect/server",
+    })
+    public void shouldInvalidateCachePostOk() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+            "${streams}/invalidate.cache/unsafe/post.failed/connect/client",
+            "${streams}/invalidate.cache/unsafe/post.failed/connect/server",
+    })
+    public void shouldInvalidateCachePostFailed() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+            "${streams}/invalidate.cache/unsafe/put.ok/connect/client",
+            "${streams}/invalidate.cache/unsafe/put.ok/connect/server",
+    })
+    public void shouldInvalidateCachePutOk() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+            "${streams}/invalidate.cache/unsafe/put.failed/connect/client",
+            "${streams}/invalidate.cache/unsafe/put.failed/connect/server",
+    })
+    public void shouldInvalidateCachePutFailed() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+            "${streams}/invalidate.cache/unsafe/delete.ok/connect/client",
+            "${streams}/invalidate.cache/unsafe/delete.ok/connect/server",
+    })
+    public void shouldInvalidateCacheDeleteOk() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+            "${streams}/invalidate.cache/unsafe/delete.failed/connect/client",
+            "${streams}/invalidate.cache/unsafe/delete.failed/connect/server",
+    })
+    public void shouldInvalidateCacheDeleteFailed() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+            "${streams}/invalidate.cache/link/invalidates.success/post.ok/connect/client",
+            "${streams}/invalidate.cache/link/invalidates.success/post.ok/connect/server",
+    })
+    public void shouldLinkInvalidateCachePostOk() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+            "${streams}/invalidate.cache/link/invalidates.success/post.failed/connect/client",
+            "${streams}/invalidate.cache/link/invalidates.success/post.failed/connect/server",
+    })
+    public void shouldLinkInvalidateCachePostFailed() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+            "${streams}/invalidate.cache/link/invalidates.success/put.ok/connect/client",
+            "${streams}/invalidate.cache/link/invalidates.success/put.ok/connect/server",
+    })
+    public void shouldLinkInvalidateCachePutOk() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+            "${streams}/invalidate.cache/link/invalidates.success/put.failed/connect/client",
+            "${streams}/invalidate.cache/link/invalidates.success/put.failed/connect/server",
+    })
+    public void shouldLinkInvalidateCachePutFailed() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+            "${streams}/invalidate.cache/link/invalidates.success/delete.ok/connect/client",
+            "${streams}/invalidate.cache/link/invalidates.success/delete.ok/connect/server",
+    })
+    public void shouldLinkInvalidateCacheDeleteOk() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+            "${streams}/invalidate.cache/link/invalidates.success/delete.failed/connect/client",
+            "${streams}/invalidate.cache/link/invalidates.success/delete.failed/connect/server",
+    })
+    public void shouldLinkInvalidateCacheDeleteFailed() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
         "${streams}/should.bypass.cache.on.no.cache/connect/client",
         "${streams}/should.bypass.cache.on.no.cache/connect/server",
     })
